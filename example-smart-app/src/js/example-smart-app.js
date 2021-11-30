@@ -101,7 +101,7 @@
         }
       };
       request.setRequestHeader("Accept", "application/fhir+json");
-			rrequest.setRequestHeader("Content-Type", "application/fhir+json");
+			request.setRequestHeader("Content-Type", "application/fhir+json");
       const body = `{
 				"resourceType": "Parameters",
   				"parameter": [
