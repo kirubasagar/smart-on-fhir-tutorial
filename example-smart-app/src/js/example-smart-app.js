@@ -91,7 +91,7 @@
     {
       const url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue";
       const request = new XMLHttpRequest();
-      request.open("POST", url, false);
+      request.open("POST", url, true);
       request.onreadystatechange = () => {
         if (request.readyState === 4) {
           if (request.DONE && request.status === 200) {
@@ -104,24 +104,25 @@
       request.setRequestHeader("Accept", "application/fhir+json");
 			request.setRequestHeader("Content-Type", "application/fhir+json");
       const body = `{
-				"resourceType": "Parameters",
+				  "resourceType": "Parameters",
   				"parameter": [
-					{
-						"name": "credentialType",
-						"valueUri": "https://smarthealth.cards#immunization"
-					},
-					{
-						"name": "credentialType",
-						"valueUri": "https://smarthealth.cards#covid19"
-					}
-				]
+  					{
+  						"name": "credentialType",
+  						"valueUri": "https://smarthealth.cards#immunization"
+  					},
+  					{
+  						"name": "credentialType",
+  						"valueUri": "https://smarthealth.cards#covid19"
+  					}
+				 ]
 			}`;
 			request.send(body);
-      request.send();
     }
     catch (err) {
-      reject(`Failed due to ${err.description}`);
+      //reject(`Failed due to ${err.description}`);
+      reject("Failed due to error");
     }
+
   });
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {
