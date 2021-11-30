@@ -97,7 +97,8 @@
           if (request.DONE && request.status === 200) {
             resolve(JSON.parse(request.responseText));
           }
-          reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
+          reject("Status service returned statusother than 200");
+          //reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
         }
       };
       request.setRequestHeader("Accept", "application/fhir+json");
