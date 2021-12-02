@@ -32,8 +32,8 @@
         var result = client1.request({
             url: "Patient/12724065/$health-cards-issue",
             method: "POST",
-            body: "{\"resourceType\":\"Parameters\",
-                  + "\"parameter\": ["
+            body: "{\"resourceType\":\"Parameters\","
+                  + "\"parameter\":["
                   +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
                   +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}"
         });
