@@ -30,20 +30,7 @@
 
         const result = client.request({
             url: "Patient/12724065/$health-cards-issue",
-            method: "POST",
-            body: {
-                   "resourceType": "Parameters",
-                    "parameter": [
-                      {
-                        "name": "credentialType",
-                        "valueUri": "https://smarthealth.cards#immunization"
-                      },
-                      {
-                        "name": "credentialType",
-                        "valueUri": "https://smarthealth.cards#covid19"
-                      }
-                   ]
-                }
+            method: "POST
         });
 
         $.when(pt, obv).fail(onError);
