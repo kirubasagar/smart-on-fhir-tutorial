@@ -41,7 +41,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
-          var smartCardResponse  = getSmartCard(12724065);
+          //var smartCardResponse  = getSmartCard(12724065);
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
           p.gender = gender;
@@ -86,44 +86,44 @@
     };
   }
 
-  const getSmartCard = (personId) => new Promise((resolve, reject) => {
-    try
-    {
-      const url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue";
-      const request = new XMLHttpRequest();
-      request.open("POST", url, true);
-      request.onreadystatechange = () => {
-        if (request.readyState === 4) {
-          if (request.DONE && request.status === 200) {
-            resolve(JSON.parse(request.responseText));
-          }
-          reject("Status service returned statusother than 200");
-          //reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
-        }
-      };
-      request.setRequestHeader("Accept", "application/fhir+json");
-			request.setRequestHeader("Content-Type", "application/fhir+json");
-      const body = `{
-				  "resourceType": "Parameters",
-  				"parameter": [
-  					{
-  						"name": "credentialType",
-  						"valueUri": "https://smarthealth.cards#immunization"
-  					},
-  					{
-  						"name": "credentialType",
-  						"valueUri": "https://smarthealth.cards#covid19"
-  					}
-				 ]
-			}`;
-			request.send(body);
-    }
-    catch (err) {
-      //reject(`Failed due to ${err.description}`);
-      reject("Failed due to error");
-    }
-
-  });
+  // const getSmartCard = (personId) => new Promise((resolve, reject) => {
+  //   try
+  //   {
+  //     const url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue";
+  //     const request = new XMLHttpRequest();
+  //     request.open("POST", url, true);
+  //     request.onreadystatechange = () => {
+  //       if (request.readyState === 4) {
+  //         if (request.DONE && request.status === 200) {
+  //           resolve(JSON.parse(request.responseText));
+  //         }
+  //         reject("Status service returned statusother than 200");
+  //         //reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
+  //       }
+  //     };
+  //     request.setRequestHeader("Accept", "application/fhir+json");
+	// 		request.setRequestHeader("Content-Type", "application/fhir+json");
+  //     const body = `{
+	// 			  "resourceType": "Parameters",
+  // 				"parameter": [
+  // 					{
+  // 						"name": "credentialType",
+  // 						"valueUri": "https://smarthealth.cards#immunization"
+  // 					},
+  // 					{
+  // 						"name": "credentialType",
+  // 						"valueUri": "https://smarthealth.cards#covid19"
+  // 					}
+	// 			 ]
+	// 		}`;
+	// 		request.send(body);
+  //   }
+  //   catch (err) {
+  //     //reject(`Failed due to ${err.description}`);
+  //     reject("Failed due to error");
+  //   }
+  //
+  // });
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {
     var formattedBPObservations = [];
