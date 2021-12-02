@@ -40,9 +40,10 @@
         //
         // client.request("Patient/12724065/$health-cards-issue");
 
-        $.when(pt, obv).fail(onError);
+        $.when(pt, obv, immun).fail(onError);
 
-        $.when(pt, obv).done(function(patient, obv) {
+        $.when(pt, obv, immun).done(function(patient, obv) {
+          alert("test");
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
