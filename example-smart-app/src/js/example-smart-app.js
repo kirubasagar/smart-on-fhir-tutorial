@@ -21,9 +21,9 @@
                       }
                     }
                   });
-        alert("test");
+        alert(personId);
         var client1 = FHIR.client({
-            serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/"
+            serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d"
         });
 
       //  client.request("Patient/12724065/$health-cards-issue");
