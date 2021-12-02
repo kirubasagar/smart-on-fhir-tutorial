@@ -1,3 +1,4 @@
+"use strict";
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
@@ -27,6 +28,7 @@
         });
 
       //  client.request("Patient/12724065/$health-cards-issue");
+
 
         var result = client1.request({
             url: "Patient/12724065/$health-cards-issue",
