@@ -21,7 +21,7 @@
                       }
                     }
                   });
-        alert(personId);
+        alert("test");
         // var client1 = new FHIR.client({
         //     serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d"
         // });
