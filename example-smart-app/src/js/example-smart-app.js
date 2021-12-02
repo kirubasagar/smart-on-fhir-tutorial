@@ -22,15 +22,28 @@
                     }
                   });
 
-        const client = FHIR.client({
+        var client = FHIR.client({
             serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/"
         });
 
       //  client.request("Patient/12724065/$health-cards-issue");
 
-        const result = client.request({
+        var result = client.request({
             url: "Patient/12724065/$health-cards-issue",
-            method: "POST
+            method: "POST",
+            body: {
+                   "resourceType": "Parameters",
+                    "parameter": [
+                      {
+                        "name": "credentialType",
+                        "valueUri": "https://smarthealth.cards#immunization"
+                      },
+                      {
+                        "name": "credentialType",
+                        "valueUri": "https://smarthealth.cards#covid19"
+                      }
+                   ]
+                }
         });
 
         $.when(pt, obv).fail(onError);
