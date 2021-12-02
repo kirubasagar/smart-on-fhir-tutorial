@@ -25,7 +25,7 @@
         var immunization = smart.patient.api.fetchAll({
             type: 'Immunization',
             query: {
-              code: {
+              vaccineCode: {
                 $or: [
                   'http://hl7.org/fhir/sid/cvx'
                 ]
