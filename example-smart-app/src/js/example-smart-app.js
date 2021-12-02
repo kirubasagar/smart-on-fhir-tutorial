@@ -21,18 +21,19 @@
                       }
                     }
                   });
-        alert("test");
-        // var client1 = new FHIR.client({
-        //     serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d"
-        // });
 
-        var client1 = new FHIR.client("https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d");
+        alert("test");
+        var client1 = new FHIR.client({
+            serverUrl: "https://fhir-open.stagingcerner.com"
+        });
+
+        //var client1 = new FHIR.client("https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d");
 
       //  client.request("Patient/12724065/$health-cards-issue");
 
 
         var result = client1.request({
-            url: "Patient/12724065/$health-cards-issue",
+            url: "beta/ec2458f2-1e24-41c8-b71b-0e701af7583dPatient/12724065/$health-cards-issue",
             method: "POST",
             body: "{\"resourceType\":\"Parameters\","
                   + "\"parameter\":["
