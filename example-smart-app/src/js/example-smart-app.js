@@ -1,4 +1,3 @@
-"use strict";
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
@@ -33,19 +32,10 @@
         var result = client1.request({
             url: "Patient/12724065/$health-cards-issue",
             method: "POST",
-            body: `{
-                   "resourceType": "Parameters",
-                    "parameter": [
-                      {
-                        "name": "credentialType",
-                        "valueUri": "https://smarthealth.cards#immunization"
-                      },
-                      {
-                        "name": "credentialType",
-                        "valueUri": "https://smarthealth.cards#covid19"
-                      }
-                   ]
-                }`
+            body: "{\"resourceType\":\"Parameters\",
+                  + "\"parameter\": ["
+                  +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
+                  +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}"
         });
 
         $.when(pt, obv).fail(onError);
