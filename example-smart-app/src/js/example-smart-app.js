@@ -22,7 +22,7 @@
                     }
                   });
 
-        var immun = smart.patient.api.fetchAll({
+        var immunization = smart.patient.api.fetchAll({
             type: 'Immunization',
             query: {
               code: {
@@ -40,9 +40,9 @@
         //
         // client.request("Patient/12724065/$health-cards-issue");
 
-        $.when(pt, obv, immun).fail(onError);
+        $.when(pt, obv, immunization).fail(onError);
 
-        $.when(pt, obv, immun).done(function(patient, obv) {
+        $.when(pt, obv, immunization).done(function(patient, obv, immunization) {
           alert("test");
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
@@ -60,6 +60,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
+          var immun = immunization.status;
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
@@ -78,6 +79,7 @@
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
+          p.immun = immun;
 
           ret.resolve(p);
         });
@@ -102,6 +104,7 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
+      immun: {value: ''},
     };
   }
 
