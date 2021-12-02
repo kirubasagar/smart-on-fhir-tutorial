@@ -27,8 +27,7 @@
             query: {
               code: {
                 $or: [
-                  'https://smarthealth.cards#immunization',
-                  'https://smarthealth.cards#covid19'
+                  'http://hl7.org/fhir/sid/cvx'
                 ]
               }
             }
