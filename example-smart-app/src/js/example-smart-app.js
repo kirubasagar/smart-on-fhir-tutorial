@@ -31,7 +31,7 @@
         var result = client1.request({
             url: "Patient/12724065/$health-cards-issue",
             method: "POST",
-            body: {
+            body: `{
                    "resourceType": "Parameters",
                     "parameter": [
                       {
@@ -43,9 +43,9 @@
                         "valueUri": "https://smarthealth.cards#covid19"
                       }
                    ]
-                }
+                }`
         });
-        alert(result.resourceType);
+
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
