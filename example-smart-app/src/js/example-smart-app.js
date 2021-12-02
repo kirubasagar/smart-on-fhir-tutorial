@@ -33,7 +33,7 @@
 
 
         var result = client1.request({
-            url: "Patient/12724065/$health-cards-issue",
+            url: "/Patient/12724065/$health-cards-issue",
             method: "POST",
             body: "{\"resourceType\":\"Parameters\","
                   + "\"parameter\":["
