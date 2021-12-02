@@ -44,6 +44,7 @@
         $.when(pt, obv, immunization).done(function(patient, obv, immunization) {
           alert("test");
           var byCodes = smart.byCodes(obv, 'code');
+          //var id = patient.id;
           var gender = patient.gender;
 
           var fname = '';
@@ -62,6 +63,7 @@
           var immun = immunization.status;
 
           var p = defaultPatient();
+          p.ident = patient.id;
           p.birthdate = patient.birthDate;
           p.gender = gender;
           p.fname = fname;
@@ -94,6 +96,7 @@
 
   function defaultPatient(){
     return {
+      ident: {value: ''},
       fname: {value: ''},
       lname: {value: ''},
       gender: {value: ''},
