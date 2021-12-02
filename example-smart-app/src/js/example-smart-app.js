@@ -22,6 +22,24 @@
                     }
                   });
 
+        var immun = smart.patient.api.fetchAll({
+            type: 'Immunization',
+            query: {
+              code: {
+                $or: [
+                  'https://smarthealth.cards#immunization',
+                  'https://smarthealth.cards#covid19'
+                ]
+              }
+            }
+        });
+
+        // const client = FHIR.client({
+        //     serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/"
+        // });
+        //
+        // client.request("Patient/12724065/$health-cards-issue");
+
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
