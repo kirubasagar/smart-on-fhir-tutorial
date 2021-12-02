@@ -22,17 +22,6 @@
                     }
                   });
 
-        // var immunization = smart.patient.api.fetchAll({
-        //     type: 'Immunization',
-        //     query: {
-        //       vaccineCode: {
-        //         $or: [
-        //           'http://hl7.org/fhir/sid/cvx'
-        //         ]
-        //       }
-        //     }
-        // });
-
         const client = FHIR.client({
             serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/"
         });
@@ -42,25 +31,25 @@
         const result = client.request({
             url: "Patient/12724065/$health-cards-issue",
             method: "POST",
-            body: `{
-       			  "resourceType": "Parameters",
-        				"parameter": [
-         					{
-         						"name": "credentialType",
-         						"valueUri": "https://smarthealth.cards#immunization"
-         					},
-         					{
-         						"name": "credentialType",
-         						"valueUri": "https://smarthealth.cards#covid19"
-         					}
-      	 			 ]
-      	 		}`
+            body: {
+                   "resourceType": "Parameters",
+                    "parameter": [
+                      {
+                        "name": "credentialType",
+                        "valueUri": "https://smarthealth.cards#immunization"
+                      },
+                      {
+                        "name": "credentialType",
+                        "valueUri": "https://smarthealth.cards#covid19"
+                      }
+                   ]
+                }
         });
 
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
-          //alert("test");
+
           var byCodes = smart.byCodes(obv, 'code');
           var ident = patient.id;
           var gender = patient.gender;
@@ -78,7 +67,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
-          var immun = "immunization.status";
+          var immun = "1";
 
           var p = defaultPatient();
           p.ident = ident;
