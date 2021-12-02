@@ -21,14 +21,14 @@
                       }
                     }
                   });
-
-        var client = FHIR.client({
+        alert("test");
+        var client1 = FHIR.client({
             serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/"
         });
 
       //  client.request("Patient/12724065/$health-cards-issue");
 
-        var result = client.request({
+        var result = client1.request({
             url: "Patient/12724065/$health-cards-issue",
             method: "POST",
             body: {
@@ -45,7 +45,7 @@
                    ]
                 }
         });
-
+        alert(result.resourceType);
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
