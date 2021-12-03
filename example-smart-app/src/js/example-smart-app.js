@@ -23,23 +23,23 @@
                   });
 
         alert("test1");
-        var client1 = new FHIR.client({
-            serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d"
-        });
-
-        //var client1 = new FHIR.client("https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d");
-
-      //  client.request("Patient/12724065/$health-cards-issue");
-
-
-        var result = client1.request({
-            url: "/Patient/12724065/$health-cards-issue",
-            method: "POST",
-            body: "{\"resourceType\":\"Parameters\","
-                  + "\"parameter\":["
-                  +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
-                  +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}"
-        });
+        if (smart.server.auth.type === 'bearer') {
+          var header = null;
+          header = 'Bearer ' + smart.server.auth.token;
+          alert(header);
+       }
+        // var client1 = new FHIR.client({
+        //     serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d"
+        // });
+        //
+        // var result = client1.request({
+        //     url: "/Patient/12724065/$health-cards-issue",
+        //     method: "POST",
+        //     body: "{\"resourceType\":\"Parameters\","
+        //           + "\"parameter\":["
+        //           +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
+        //           +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}"
+        // });
 
         $.when(pt, obv).fail(onError);
 
