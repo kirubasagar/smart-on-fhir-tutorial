@@ -107,7 +107,7 @@
         request.open("POST", url, true);
         request.onreadystatechange = function() {
           if (request.readyState === 4) {
-            
+            alert("test");
             alert(request.readyState);
             alert(request.status);
             if (request.DONE && request.status === 200) {
@@ -117,20 +117,9 @@
               alert("Failure");
           }
         }
-      //  request.onreadystatechange = () => {
-          // if (request.readyState === 4) {
-          //   if (request.DONE && request.status === 200) {
-          //     alert("success");
-          //     resolve(JSON.parse(request.responseText));
-          //   }
-          // //	reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
-          //   alert("Failure");
-          //   reject("Status service returned statusother than 200 ");
-          // }
-        //};
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
-        request.setRequestHeader("Authorization", header);
+        //request.setRequestHeader("Authorization", header);
 
 
         // var body = '{\'resourceType\':\'Parameters\','
@@ -141,19 +130,10 @@
                    + "\"parameter\":["
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
-        // var body =
-        //     "{'resourceType':'Parameters'," +
-        //     "'parameter':[" +
-        //     "{'name':'credentialType','valueUri':'https://smarthealth.cards#immunization'}," +
-        //     "{'name':'credentialType','valueUri':'https://smarthealth.cards#covid19'}]}";
 
         request.send(body);
-
-
       }
       catch (err) {
-      //	reject(`Failed due to ${err.description}`);
-        //reject("Failed due to error");
         alert(err);
       }
   }
