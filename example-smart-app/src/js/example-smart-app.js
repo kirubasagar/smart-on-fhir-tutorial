@@ -98,8 +98,9 @@
   function getSmartCard(personId){
     try
     {
-
+        alert(personId);
         var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + personId + "/$health-cards-issue";
+        alert(url);
         var request = new XMLHttpRequest();
         request.open("POST", url, true);
         request.onreadystatechange = function() {
@@ -113,9 +114,9 @@
               //alert(request.response.resourceType);
             }
           }
-          // else {
-          //   alert("faliure");
-          // }
+          else {
+            alert("faliure");
+          }
         }
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
