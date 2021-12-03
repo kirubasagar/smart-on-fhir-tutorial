@@ -36,8 +36,10 @@
            var encounterId = smart.tokenResponse.encounter;
            var userId = smart.tokenResponse.user;
            alert(personId + " " + encounterId + " " + userId);
-         }
-       var testData = getSmartCard(personId);
+       }
+
+        var testData = getSmartCard(personId);
+
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
@@ -102,7 +104,7 @@
         request.open("POST", url, true);
         request.onreadystatechange = function() {
           if (request.readyState === 4) {
-            // alert("test");
+            alert("test");
             // alert(request.readyState);
             // alert(request.status);
             if (request.DONE && request.status === 200) {
