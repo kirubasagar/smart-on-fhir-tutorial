@@ -105,9 +105,9 @@
           if (request.readyState === 4) {
             // alert("test");
             // alert(request.readyState);
-            alert(request.status);
+            //alert(request.status);
             if (request.DONE && request.status === 200) {
-              alert(request.status);
+              //alert(request.status);
               alert(request.response);
               var testData = JSON.parse(request.response);
               alert(testData.resourceType);
