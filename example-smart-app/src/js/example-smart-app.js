@@ -23,11 +23,42 @@
                   });
 
         alert("test1");
+        var header = null;
         if (smart.server.auth.type === 'bearer') {
-          var header = null;
+
           header = 'Bearer ' + smart.server.auth.token;
           alert(header);
        }
+
+       const getSmartCard = (personId) => new Promise((resolve, reject) => {
+      	try
+      	{
+      			const url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue";
+      			const request = new XMLHttpRequest();
+      			request.open("POST", url, false);
+      			request.onreadystatechange = () => {
+      				if (request.readyState === 4) {
+      					if (request.DONE && request.status === 200) {
+      						resolve(JSON.parse(request.responseText));
+      					}
+      				//	reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
+                reject("Status service returned statusother than 200 ");
+      				}
+      			};
+      			request.setRequestHeader("Accept", "application/fhir+json");
+      			request.setRequestHeader("Content-Type", "application/fhir+json");
+            request.setRequestHeader("Authorization ", header);
+      			const body: "{\"resourceType\":\"Parameters\","
+                       + "\"parameter\":["
+                       +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
+                       +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
+      			request.send(body);
+      		}
+      		catch (err) {
+      		//	reject(`Failed due to ${err.description}`);
+            reject("Failed due to error");
+      		}
+      	});
         // var client1 = new FHIR.client({
         //     serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d"
         // });
