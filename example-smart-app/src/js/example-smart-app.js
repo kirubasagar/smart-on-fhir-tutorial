@@ -26,16 +26,14 @@
       //  alert("test");
         var header = null;
         if (smart.server.auth.type === 'bearer') {
-
           header = 'Bearer ' + smart.server.auth.token;
-          //alert(header);
        }
-      var patientId = null;
+       var patientId = null;
        if (smart.tokenResponse) {
             patientId = smart.tokenResponse.patient;
            var encounterId = smart.tokenResponse.encounter;
            var userId = smart.tokenResponse.user;
-           alert(patientId + " " + encounterId + " " + userId);
+           //alert(patientId + " " + encounterId + " " + userId);
          }
 
        var testData1 = getSmartCard(patientId);
@@ -103,22 +101,18 @@
         request.open("POST", url, true);
         request.onreadystatechange = function() {
           if (request.readyState === 4) {
-            // alert("test");
-            // alert(request.readyState);
-            //alert(request.status);
+
             if (request.DONE && request.status === 200) {
-              //alert(request.status);
               alert(request.response);
               var testData = JSON.parse(request.response);
-              alert(testData.resourceType);
+              alert("ResourceType: " + testData.resourceType);
+              alert("ValueString: " + testData.parameter[0].valueString);
+              //return testData;
             }
             else {
                alert("faliure");
             }
           }
-          // else {
-          //   alert("faliure");
-          // }
         }
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
