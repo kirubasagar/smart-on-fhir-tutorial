@@ -125,16 +125,20 @@
         //            + '\'parameter\':['
         //            +  '{\'name\':\'credentialType\',\'valueUri\':\'https://smarthealth.cards#immunization\'},'
         //            +  '{\'name\':\'credentialType\',\'valueUri\':\'https://smarthealth.cards#covid19\'}]}';
-
-        var body =
-            "{'resourceType':'Parameters'," +
-            "'parameter':[" +
-            "{'name':'credentialType','valueUri':'https://smarthealth.cards#immunization'}," +
-            "{'name':'credentialType','valueUri':'https://smarthealth.cards#covid19'}]}";
+        var body = "{\"resourceType\":\"Parameters\","
+                   + "\"parameter\":["
+                 +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
+                   +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
+        // var body =
+        //     "{'resourceType':'Parameters'," +
+        //     "'parameter':[" +
+        //     "{'name':'credentialType','valueUri':'https://smarthealth.cards#immunization'}," +
+        //     "{'name':'credentialType','valueUri':'https://smarthealth.cards#covid19'}]}";
 
         request.send(body);
 
         if (request.readyState === 4) {
+          
           alert(request.readyState);
           alert(request.status);
           if (request.DONE && request.status === 200) {
