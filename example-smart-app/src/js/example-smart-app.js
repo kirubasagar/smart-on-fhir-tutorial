@@ -38,7 +38,7 @@
            alert(patientId + " " + encounterId + " " + userId);
          }
 
-       var testData = getSmartCard(patientId);
+       var testData1 = getSmartCard(patientId);
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
@@ -109,7 +109,8 @@
             if (request.DONE && request.status === 200) {
               alert(request.status);
               alert(request.response);
-              alert(request.response.resourceType);
+              var testData = JSON.parse(request.response);
+              alert(testData.resourceType);
             }
             else {
                alert("faliure");
