@@ -101,8 +101,8 @@
   function getSmartCard(header){
     try
     {
-        const url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue";
-        const request = new XMLHttpRequest();
+        var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue";
+        var request = new XMLHttpRequest();
         request.open("POST", url, false);
         request.onreadystatechange = () => {
           if (request.readyState === 4) {
@@ -118,7 +118,7 @@
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
         request.setRequestHeader("Authorization ", header);
-        const body: "{\"resourceType\":\"Parameters\","
+        var body: "{\"resourceType\":\"Parameters\","
                    + "\"parameter\":["
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
