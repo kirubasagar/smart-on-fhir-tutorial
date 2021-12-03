@@ -148,7 +148,8 @@
       }
       catch (err) {
       //	reject(`Failed due to ${err.description}`);
-        reject("Failed due to error");
+        //reject("Failed due to error");
+        alert(err);
       }
   }
 
