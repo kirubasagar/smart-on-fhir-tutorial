@@ -104,7 +104,19 @@
     {
         var url = 'https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue';
         var request = new XMLHttpRequest();
-        request.open("POST", url, false);
+        request.open("POST", url, true);
+        request.onreadystatechange = function() {
+          if (request.readyState === 4) {
+            
+            alert(request.readyState);
+            alert(request.status);
+            if (request.DONE && request.status === 200) {
+              alert(request.status);
+              alert("success");
+          }
+              alert("Failure");
+          }
+        }
       //  request.onreadystatechange = () => {
           // if (request.readyState === 4) {
           //   if (request.DONE && request.status === 200) {
@@ -127,7 +139,7 @@
         //            +  '{\'name\':\'credentialType\',\'valueUri\':\'https://smarthealth.cards#covid19\'}]}';
         var body = "{\"resourceType\":\"Parameters\","
                    + "\"parameter\":["
-                 +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
+                   +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
         // var body =
         //     "{'resourceType':'Parameters'," +
@@ -137,19 +149,7 @@
 
         request.send(body);
 
-        if (request.readyState === 4) {
-          
-          alert(request.readyState);
-          alert(request.status);
-          if (request.DONE && request.status === 200) {
-            alert(request.status);
-            alert("success");
-            //resolve(JSON.parse(request.responseText));
-          }
-        //	reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
-          alert("Failure");
-          //reject("Status service returned statusother than 200 ");
-        }
+
       }
       catch (err) {
       //	reject(`Failed due to ${err.description}`);
