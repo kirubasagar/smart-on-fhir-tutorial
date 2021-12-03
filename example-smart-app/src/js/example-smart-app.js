@@ -119,7 +119,7 @@
         //};
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
-        request.setRequestHeader("Authorization ", header);
+        request.setRequestHeader("Authorization", header);
 
 
         // var body = '{\'resourceType\':\'Parameters\','
@@ -136,13 +136,15 @@
         request.send(body);
 
         if (request.readyState === 4) {
+          alert(request.readyState);
           if (request.DONE && request.status === 200) {
+            alert(request.status);
             alert("success");
-            resolve(JSON.parse(request.responseText));
+            //resolve(JSON.parse(request.responseText));
           }
         //	reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
           alert("Failure");
-          reject("Status service returned statusother than 200 ");
+          //reject("Status service returned statusother than 200 ");
         }
       }
       catch (err) {
