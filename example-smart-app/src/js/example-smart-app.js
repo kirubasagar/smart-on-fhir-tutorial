@@ -30,16 +30,15 @@
           header = 'Bearer ' + smart.server.auth.token;
           //alert(header);
        }
-          var personId = null;
+      var patientId = null;
        if (smart.tokenResponse) {
-           personId = smart.tokenResponse.patient;
+            patientId = smart.tokenResponse.patient;
            var encounterId = smart.tokenResponse.encounter;
            var userId = smart.tokenResponse.user;
-           alert(personId + " " + encounterId + " " + userId);
-       }
+           alert(patientId + " " + encounterId + " " + userId);
+         }
 
-        var testData = getSmartCard(personId);
-
+       var testData = getSmartCard(patientId);
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
@@ -95,28 +94,30 @@
 
   };
 
-  function getSmartCard(personId){
+  function getSmartCard(patientId){
     try
     {
-        alert(personId);
+        var personId = 12724065;
         var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + personId + "/$health-cards-issue";
-        alert(url);
         var request = new XMLHttpRequest();
         request.open("POST", url, true);
         request.onreadystatechange = function() {
           if (request.readyState === 4) {
-            alert("test");
+            // alert("test");
             // alert(request.readyState);
-            // alert(request.status);
+            alert(request.status);
             if (request.DONE && request.status === 200) {
               alert(request.status);
               alert(request.response);
-              //alert(request.response.resourceType);
+              alert(request.response.resourceType);
+            }
+            else {
+               alert("faliure");
             }
           }
-          else {
-            alert("faliure");
-          }
+          // else {
+          //   alert("faliure");
+          // }
         }
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
