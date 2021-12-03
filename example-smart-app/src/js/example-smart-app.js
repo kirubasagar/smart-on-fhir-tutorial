@@ -112,7 +112,8 @@
             alert(request.status);
             if (request.DONE && request.status === 200) {
               alert(request.status);
-              alert("success");
+              alert(request.response);
+              alert(request.response.length);
           }
               alert("Failure");
           }
