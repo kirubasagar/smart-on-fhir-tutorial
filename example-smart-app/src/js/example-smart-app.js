@@ -108,7 +108,7 @@
             if (request.DONE && request.status === 200) {
               alert(request.status);
               alert(request.response);
-              alert(request.response.resourceType);
+              //alert(request.response.resourceType);
             }
           }
           // else {
