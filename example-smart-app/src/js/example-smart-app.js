@@ -23,7 +23,7 @@
                     }
                   });
 
-        alert("test");
+      //  alert("test");
         var header = null;
         if (smart.server.auth.type === 'bearer') {
 
