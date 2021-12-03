@@ -30,20 +30,14 @@
           header = 'Bearer ' + smart.server.auth.token;
           //alert(header);
        }
-       var testData = getSmartCard(header);
-        // var client1 = new FHIR.client({
-        //     serverUrl: "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d"
-        // });
-        //
-        // var result = client1.request({
-        //     url: "/Patient/12724065/$health-cards-issue",
-        //     method: "POST",
-        //     body: "{\"resourceType\":\"Parameters\","
-        //           + "\"parameter\":["
-        //           +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
-        //           +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}"
-        // });
 
+       if (smart.tokenResponse) {
+           var patientId = smart.tokenResponse.patient;
+           var encounterId = smart.tokenResponse.encounter;
+           var userId = smart.tokenResponse.user;
+           alert(patientId + " " + encounterId + " " + userId);
+         }
+       var testData = getSmartCard(header);
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
@@ -114,19 +108,15 @@
               alert(request.status);
               alert(request.response);
               alert(request.response.length);
+            }
           }
-              alert("Failure");
+          else {
+            alert("faliure");
           }
         }
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
-        //request.setRequestHeader("Authorization", header);
 
-
-        // var body = '{\'resourceType\':\'Parameters\','
-        //            + '\'parameter\':['
-        //            +  '{\'name\':\'credentialType\',\'valueUri\':\'https://smarthealth.cards#immunization\'},'
-        //            +  '{\'name\':\'credentialType\',\'valueUri\':\'https://smarthealth.cards#covid19\'}]}';
         var body = "{\"resourceType\":\"Parameters\","
                    + "\"parameter\":["
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
