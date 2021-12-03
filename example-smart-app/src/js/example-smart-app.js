@@ -96,7 +96,7 @@
   function getSmartCard(personId){
     try
     {
-        var url = `https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/${personId}/$health-cards-issue`;
+        var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + personId + "/$health-cards-issue";
         var request = new XMLHttpRequest();
         request.open("POST", url, true);
         request.onreadystatechange = function() {
