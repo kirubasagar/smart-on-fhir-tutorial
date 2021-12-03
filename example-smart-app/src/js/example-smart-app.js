@@ -118,10 +118,10 @@
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
         request.setRequestHeader("Authorization ", header);
-        var body: "{\"resourceType\":\"Parameters\","
-                   + "\"parameter\":["
-                   +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
-                   +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
+        var body: '{\"resourceType\":\"Parameters\",'
+                   + '\"parameter\":['
+                   +  '{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},'
+                   +  '{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}';
         request.send(body);
         if (request.readyState === 4) {
           if (request.DONE && request.status === 200) {
