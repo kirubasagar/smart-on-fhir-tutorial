@@ -28,7 +28,7 @@
         if (smart.server.auth.type === 'bearer') {
 
           header = 'Bearer ' + smart.server.auth.token;
-          alert(header);
+          //alert(header);
        }
        var testData = getSmartCard(header);
         // var client1 = new FHIR.client({
@@ -102,7 +102,6 @@
   function getSmartCard(header){
     try
     {
-        alert(header);
         var url = 'https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue';
         var request = new XMLHttpRequest();
         request.open("POST", url, false);
