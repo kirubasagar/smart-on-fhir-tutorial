@@ -35,9 +35,9 @@
            personId = smart.tokenResponse.patient;
            var encounterId = smart.tokenResponse.encounter;
            var userId = smart.tokenResponse.user;
-           alert(patientId + " " + encounterId + " " + userId);
+           alert(personId + " " + encounterId + " " + userId);
          }
-       var testData = getSmartCard(patientId);
+       var testData = getSmartCard(personId);
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
@@ -96,6 +96,7 @@
   function getSmartCard(personId){
     try
     {
+
         var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + personId + "/$health-cards-issue";
         var request = new XMLHttpRequest();
         request.open("POST", url, true);
