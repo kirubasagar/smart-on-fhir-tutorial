@@ -136,6 +136,7 @@
 
         if (request.readyState === 4) {
           alert(request.readyState);
+          alert(request.status);
           if (request.DONE && request.status === 200) {
             alert(request.status);
             alert("success");
