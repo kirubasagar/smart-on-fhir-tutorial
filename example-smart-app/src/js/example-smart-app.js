@@ -104,17 +104,17 @@
         var url = 'https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724065/$health-cards-issue';
         var request = new XMLHttpRequest();
         request.open("POST", url, false);
-        request.onreadystatechange = () => {
-          if (request.readyState === 4) {
-            if (request.DONE && request.status === 200) {
-              alert("success");
-              resolve(JSON.parse(request.responseText));
-            }
-          //	reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
-            alert("Failure");
-            reject("Status service returned statusother than 200 ");
-          }
-        };
+      //  request.onreadystatechange = () => {
+          // if (request.readyState === 4) {
+          //   if (request.DONE && request.status === 200) {
+          //     alert("success");
+          //     resolve(JSON.parse(request.responseText));
+          //   }
+          // //	reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
+          //   alert("Failure");
+          //   reject("Status service returned statusother than 200 ");
+          // }
+        //};
         request.setRequestHeader("Accept", "application/fhir+json");
         request.setRequestHeader("Content-Type", "application/fhir+json");
         request.setRequestHeader("Authorization ", header);
@@ -123,6 +123,15 @@
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
                    +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
         request.send(body);
+        if (request.readyState === 4) {
+          if (request.DONE && request.status === 200) {
+            alert("success");
+            resolve(JSON.parse(request.responseText));
+          }
+        //	reject(`Status service returned statusother than 200 (${request.status} ${request.responseText})`);
+          alert("Failure");
+          reject("Status service returned statusother than 200 ");
+        }
       }
       catch (err) {
       //	reject(`Failed due to ${err.description}`);
