@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
         var header = null;
         if (smart.server.auth.type === 'bearer') {
             header = 'Bearer ' + smart.server.auth.token;
@@ -23,8 +23,10 @@
         }
 
        var testData1 = getSmartCard(patientId);
+       
        var p = defaultPatient();
        p.immun = 'immun';
+
        ret.resolve(p);
       } else {
         onError();
