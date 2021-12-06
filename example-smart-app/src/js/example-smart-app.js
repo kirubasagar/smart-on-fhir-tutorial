@@ -22,10 +22,20 @@
              var userId = smart.tokenResponse.user;
         }
 
-       var testData1 = getSmartCard(patientId);
+      // var testData1 = getSmartCard(patientId);
+
+       var qrcode = new QRCode(document.getElementById("immun"), {
+        	text: "http://jindo.dev.naver.com/collie",
+        	width: 128,
+        	height: 128,
+        	colorDark : "#000000",
+        	colorLight : "#ffffff",
+        	correctLevel : QRCode.CorrectLevel.H
+        });
 
        var p = defaultPatient();
        p.immun = 'immun';
+
 
        ret.resolve(p);
       } else {
