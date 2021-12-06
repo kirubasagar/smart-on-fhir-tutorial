@@ -23,7 +23,7 @@
         }
 
        var testData1 = getSmartCard(patientId);
-       
+
        var p = defaultPatient();
        p.immun = 'immun';
 
@@ -84,6 +84,7 @@
   window.drawVisualization = function(p) {
     $('#holder').show();
     $('#loading').hide();
+    $('#immun').html(p.immun);
   };
 
 })(window);
