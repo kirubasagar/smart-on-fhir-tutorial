@@ -17,21 +17,13 @@
          }
          var patientId = null;
          if (smart.tokenResponse) {
-             patientId = smart.tokenResponse.patient;
+              patientId = smart.tokenResponse.patient;
              var encounterId = smart.tokenResponse.encounter;
              var userId = smart.tokenResponse.user;
         }
 
-      // var testData1 = getSmartCard(patientId);
+       var testData1 = getSmartCard(patientId);
 
-       var qrcode = new QRCode(document.getElementById("immun"), {
-      	text: "http://jindo.dev.naver.com/collie",
-      	width: 128,
-      	height: 128,
-      	colorDark : "#000000",
-      	colorLight : "#ffffff",
-      	correctLevel : QRCode.CorrectLevel.H
-      });
        var p = defaultPatient();
        p.immun = 'immun';
 
@@ -61,7 +53,7 @@
               var testData = JSON.parse(request.response);
               // alert("ResourceType: " + testData.resourceType);
               // alert("ValueString: " + testData.parameter[0].valueString);
-              return testData;
+              //return testData;
             }
             else {
                alert("faliure");
@@ -92,7 +84,7 @@
   window.drawVisualization = function(p) {
     $('#holder').show();
     $('#loading').hide();
-  //  $('#immun').html(p.immun);
+    $('#immun').html(p.immun);
   };
 
 })(window);
