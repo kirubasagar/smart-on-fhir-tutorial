@@ -23,6 +23,8 @@
         }
 
        var testData1 = getSmartCard(patientId);
+       var p = defaultPatient();
+       p.immun = 'immun';
        ret.resolve(p);
       } else {
         onError();
