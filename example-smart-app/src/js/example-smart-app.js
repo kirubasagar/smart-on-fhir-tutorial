@@ -46,7 +46,7 @@
                    colorLight : "#ffffff",
                    correctLevel : QRCode.CorrectLevel.H
                  });
-                 getImmunizationInformation(testData.parameter[0].valueString);
+                 var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
                  var fname = '';
 					       var lname = '';
                  if (typeof patient.name[0] !== 'undefined') {
