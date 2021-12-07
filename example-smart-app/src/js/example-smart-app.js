@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test2");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -37,7 +37,6 @@
             if (request.readyState === 4) {
 
               if (request.DONE && request.status === 200) {
-                alert(request.response);
                 var testData = JSON.parse(request.response);
                 var qrcode = new QRCode(document.getElementById("qrcode"), {
                    text: testData.parameter[0].valueString,
@@ -47,7 +46,7 @@
                    colorLight : "#ffffff",
                    correctLevel : QRCode.CorrectLevel.H
                  });
-
+                 getImmunizationInformation(testData.parameter[0].valueString);
                  var fname = '';
 					       var lname = '';
                  if (typeof patient.name[0] !== 'undefined') {
@@ -89,19 +88,22 @@
 
 function getImmunizationInformation(jwsToken)
 {
-  var url = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
-  var request = new XMLHttpRequest();
-  request.open("POST", url, true);
-  request.onreadystatechange = function() {
+  var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
+  var request1 = new XMLHttpRequest();
+  request1.open("POST", url1, true);
+  request1.onreadystatechange = function() {
   }
-  var body = "{\"jws\":"
+  var body1 = "{\"jws\":"
             + jwsToken + ","
             + "\"verify_signature\":"
             + true
             + "}";
-  request.send(body);
-  if (request.readyState === 4) {
-    
+  request1.send(body1);
+  if (request1.readyState === 4) {
+    if (request1.DONE && request1.status === 200) {
+      var immunData = JSON.parse(request1.response);
+      alert(immunData);
+    }
   }
 }
 
