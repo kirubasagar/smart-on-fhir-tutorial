@@ -88,7 +88,6 @@
 
 function getImmunizationInformation(jwsToken)
 {
-  alert("getImmunizationInformation");
   var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
   var request1 = new XMLHttpRequest();
   request1.open("POST", url1, true);
@@ -98,11 +97,12 @@ function getImmunizationInformation(jwsToken)
       if (request1.DONE && request1.status === 200) {
         alert(request1.response);
         var immunData = JSON.parse(request1.response);
-        alert(immunData);
       }
     }
   }
 
+  request1.setRequestHeader("Accept", "application/fhir+json");
+  request1.setRequestHeader("Content-Type", "application/fhir+json");
   var body1 = "{\"jws\":\""
             + jwsToken + "\","
             + "\"verify_signature\":"
