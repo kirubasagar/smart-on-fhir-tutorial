@@ -108,9 +108,7 @@ function getImmunizationInformation(jwsToken)
             + "\"verify_signature\":"
             + true
             + "}";
-  //alert(body1);
   request1.send(body1);
-
 }
 
  function defaultPatient(){
