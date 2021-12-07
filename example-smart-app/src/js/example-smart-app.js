@@ -75,7 +75,7 @@
                      +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
 
           request.send(body);
-          
+
         });
       }
       else {
@@ -86,6 +86,24 @@
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
 };
+
+function getImmunizationInformation(jwsToken)
+{
+  var url = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
+  var request = new XMLHttpRequest();
+  request.open("POST", url, true);
+  request.onreadystatechange = function() {
+  }
+  var body = "{\"jws\":"
+            + jwsToken + ","
+            + "\"verify_signature\":"
+            + true
+            + "}";
+  request.send(body);
+  if (request.readyState === 4) {
+    
+  }
+}
 
  function defaultPatient(){
     return {
