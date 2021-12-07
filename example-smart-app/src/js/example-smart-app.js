@@ -101,6 +101,7 @@ function getImmunizationInformation(jwsToken)
       }
     }
   }
+
   var body1 = "{\"jws\":\""
             + jwsToken + "\","
             + "\"verify_signature\":"
@@ -108,7 +109,7 @@ function getImmunizationInformation(jwsToken)
             + "}";
   alert(body1);
   request1.send(body1);
-
+  
 }
 
  function defaultPatient(){
