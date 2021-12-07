@@ -87,6 +87,7 @@
 
 function getImmunizationInformation(jwsToken)
 {
+  alert("getImmunizationInformation");
   var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
   var request1 = new XMLHttpRequest();
   request1.open("POST", url1, true);
