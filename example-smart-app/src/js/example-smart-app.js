@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -47,6 +47,7 @@
                    correctLevel : QRCode.CorrectLevel.H
                  });
                  var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
+
                  var fname = '';
 					       var lname = '';
                  if (typeof patient.name[0] !== 'undefined') {
@@ -100,8 +101,8 @@ function getImmunizationInformation(jwsToken)
       }
     }
   }
-  var body1 = "{\"jws\":"
-            + jwsToken + ","
+  var body1 = "{\"jws\":\""
+            + jwsToken + "\","
             + "\"verify_signature\":"
             + true
             + "}";
