@@ -75,11 +75,10 @@
                      +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
 
           request.send(body);
-        } else {
-  				onError();
-  			}
+        });
 
-      } else {
+      } 
+      else {
         onError();
       }
     }
