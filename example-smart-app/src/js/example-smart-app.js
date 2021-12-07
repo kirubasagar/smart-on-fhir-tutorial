@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -97,6 +97,7 @@ function getImmunizationInformation(jwsToken)
       if (request1.DONE && request1.status === 200) {
         alert(request1.response);
         var immunData = JSON.parse(request1.response);
+        alert(immunData.iss);
       }
     }
   }
