@@ -74,7 +74,6 @@
                      +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
 
           request.send(body);
-
         });
       }
       else {
@@ -92,6 +91,12 @@ function getImmunizationInformation(jwsToken)
   var request1 = new XMLHttpRequest();
   request1.open("POST", url1, true);
   request1.onreadystatechange = function() {
+    if (request1.readyState === 4) {
+      if (request1.DONE && request1.status === 200) {
+        var immunData = JSON.parse(request1.response);
+        alert(immunData);
+      }
+    }
   }
   var body1 = "{\"jws\":"
             + jwsToken + ","
@@ -99,12 +104,7 @@ function getImmunizationInformation(jwsToken)
             + true
             + "}";
   request1.send(body1);
-  if (request1.readyState === 4) {
-    if (request1.DONE && request1.status === 200) {
-      var immunData = JSON.parse(request1.response);
-      alert(immunData);
-    }
-  }
+
 }
 
  function defaultPatient(){
