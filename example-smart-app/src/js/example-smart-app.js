@@ -96,6 +96,7 @@ function getImmunizationInformation(jwsToken)
     if (request1.readyState === 4) {
       alert(request1.status);
       if (request1.DONE && request1.status === 200) {
+        alert(request1.response);
         var immunData = JSON.parse(request1.response);
         alert(immunData);
       }
@@ -107,9 +108,9 @@ function getImmunizationInformation(jwsToken)
             + "\"verify_signature\":"
             + true
             + "}";
-  alert(body1);
+  //alert(body1);
   request1.send(body1);
-  
+
 }
 
  function defaultPatient(){
