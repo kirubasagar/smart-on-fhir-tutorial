@@ -47,7 +47,7 @@
                    correctLevel : QRCode.CorrectLevel.H
                  });
                  var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
-
+                 alert(kpTest.iss);
                  var fname = '';
 					       var lname = '';
                  if (typeof patient.name[0] !== 'undefined') {
