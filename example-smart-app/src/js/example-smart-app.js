@@ -22,7 +22,7 @@
              var encounterId = smart.tokenResponse.encounter;
              var userId = smart.tokenResponse.user;
         }
-
+        alert(patientId);
         var patient = smart.patient;
         var pt = patient.read();
         $.when(pt).fail(onError);
