@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -28,7 +28,6 @@
         $.when(pt).fail(onError);
 
         $.when(pt).done(function(patient) {
-          alert(patient);
           var personId = 12724065;
           var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + personId + "/$health-cards-issue";
 
@@ -55,8 +54,6 @@
         						fname = patient.name[0].given.join(' ');
         						lname = patient.name[0].family.join(' ');
         				 }
-
-
 
                  var p = defaultPatient();
                  p.birthdate = patient.birthDate;
@@ -99,7 +96,7 @@ function getImmunizationInformation(jwsToken)
       if (request1.DONE && request1.status === 200) {
         alert(request1.response);
         var immunData = JSON.parse(request1.response);
-        alert(immunData.iss);
+        //alert(immunData.iss);
       }
     }
   }
