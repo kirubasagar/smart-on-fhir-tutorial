@@ -22,7 +22,7 @@
              var encounterId = smart.tokenResponse.encounter;
              var userId = smart.tokenResponse.user;
         }
-        alert(patientId);
+
         var patient = smart.patient;
         var pt = patient.read();
         $.when(pt).fail(onError);
@@ -97,6 +97,7 @@ function getImmunizationInformation(jwsToken)
         alert(request1.response);
         var immunData = JSON.parse(request1.response);
         //alert(immunData.iss);
+        return immunData;
       }
     }
   }
