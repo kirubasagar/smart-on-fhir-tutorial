@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -35,7 +35,6 @@
           request.open("POST", url, true);
           request.onreadystatechange = function() {
             if (request.readyState === 4) {
-
               if (request.DONE && request.status === 200) {
                 var testData = JSON.parse(request.response);
                 var qrcode = new QRCode(document.getElementById("qrcode"), {
@@ -47,7 +46,7 @@
                    correctLevel : QRCode.CorrectLevel.H
                  });
                  var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
-                 alert(kpTest.iss);
+
                  var fname = '';
 					       var lname = '';
                  if (typeof patient.name[0] !== 'undefined') {
