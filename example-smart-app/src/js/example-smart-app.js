@@ -49,6 +49,9 @@
 
                  var fname = '';
 					       var lname = '';
+                 var immun = '<table id="ImmunInfo">'
+                             +'<tr><th id="ImmunName">Product Name</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                             + '<table>';
                  if (typeof patient.name[0] !== 'undefined') {
         						fname = patient.name[0].given.join(' ');
         						lname = patient.name[0].family.join(' ');
@@ -58,7 +61,7 @@
                  p.birthdate = patient.birthDate;
                  p.fname = fname;
 					       p.lname = lname;
-                 p.immun = 'immun';
+                 p.immun = immun;
                  ret.resolve(p);
               }
               else {
