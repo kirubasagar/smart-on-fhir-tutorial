@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -61,8 +61,8 @@
                              +'<td>Healthe Clinic</td>'
                              +'</tr>'
                              +'<tr>'
-                             +'<td>Name</td>'
-                             +'<td>Date of Birth</td>'
+                             +'<td>'+ i18n.Immunization.NAME +'</td>'
+                             +'<td>'+ i18n.Immunization.BIRTHDATE +'</td>'
                              +'</tr>'
                              +'<tr>'
                              +'<td>' + fname + lname + '</td>'
