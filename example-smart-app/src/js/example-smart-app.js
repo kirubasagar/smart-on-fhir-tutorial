@@ -68,8 +68,8 @@
                              +'<td>' + fname + ' '+ lname + '</td>'
                              +'<td>' + patient.birthDate +'</td>'
                              +'</tr>'
-                             +'<tr><th id="ImmunName">Product Name</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                             +'<tr><th id="ImmunName">Product Name</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                             +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                             +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
                              + '</table>';
 
                  var p = defaultPatient();
