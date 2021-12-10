@@ -11,6 +11,25 @@ body {
   display: none;
 }
 
+.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child1 {
+    width: 75%;
+    float: left;
+    padding: 20px;
+    border: 2px solid red;
+}
+
+.float-child2 {
+    width: 25%;
+    float: left;
+    padding: 20px;
+    border: 2px solid red;
+}
+
 .spinner {
   margin: 100px auto 0;
   width: 70px;
