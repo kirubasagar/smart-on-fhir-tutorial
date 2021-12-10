@@ -96,7 +96,7 @@ function getImmunizationInformation(jwsToken)
   request1.onreadystatechange = function() {
     if (request1.readyState === 4) {
       if (request1.DONE && request1.status === 200) {
-        alert(request1.response);
+        //alert(request1.response);
         var immunData = JSON.parse(request1.response);
         //alert(immunData.iss);
         return immunData;
