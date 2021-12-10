@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test2");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
