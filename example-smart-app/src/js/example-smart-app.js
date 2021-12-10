@@ -129,7 +129,7 @@ function getImmunizationInformation(jwsToken)
     $('#birthdate').html(p.birthdate);
 		$('#fname').html(p.fname);
 		$('#lname').html(p.lname);
-    //$('#immun').html(p.immun);
+    $('#immun').html(p.immun);
   };
 
 })(window);
