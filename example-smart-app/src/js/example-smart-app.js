@@ -69,7 +69,7 @@
                              +'<td>' + patient.birthDate +'</td>'
                              +'</tr>'
                              +'<tr><th id="ImmunName">Product Name</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                             + '<table>';
+                             + '</table>';
 
                  var p = defaultPatient();
                  // p.birthdate = patient.birthDate;
