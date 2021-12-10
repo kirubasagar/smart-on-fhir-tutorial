@@ -49,18 +49,32 @@
 
                  var fname = '';
 					       var lname = '';
-                 var immun = '<table id="ImmunInfo">'
-                             +'<tr><th id="ImmunName">Product Name</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                             + '<table>';
+
                  if (typeof patient.name[0] !== 'undefined') {
         						fname = patient.name[0].given.join(' ');
         						lname = patient.name[0].family.join(' ');
         				 }
 
+                 var immun = '<table id="ImmunInfo">'
+                             +'<tr>'
+                             +'<td>Covid-19 Vaccination Record Card</td>'
+                             +'<td>Healthe Clinic</td>'
+                             +'</tr>'
+                             +'<tr>'
+                             +'<td>Name</td>'
+                             +'<td>Date of Birth</td>'
+                             +'</tr>'
+                             +'<tr>'
+                             +'<td>' + fname + lname + '</td>'
+                             +'<td>' + patient.birthDate +'</td>'
+                             +'</tr>'
+                             +'<tr><th id="ImmunName">Product Name</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                             + '<table>';
+
                  var p = defaultPatient();
-                 p.birthdate = patient.birthDate;
-                 p.fname = fname;
-					       p.lname = lname;
+                 // p.birthdate = patient.birthDate;
+                 // p.fname = fname;
+					       // p.lname = lname;
                  p.immun = immun;
                  ret.resolve(p);
               }
@@ -116,9 +130,9 @@ function getImmunizationInformation(jwsToken)
 
  function defaultPatient(){
     return {
-      fname: { value: '' },
-			lname: { value: '' },
-			birthdate: { value: '' },
+      // fname: { value: '' },
+			// lname: { value: '' },
+			// birthdate: { value: '' },
       immun: {value: ''},
     };
   }
@@ -126,9 +140,9 @@ function getImmunizationInformation(jwsToken)
   window.drawVisualization = function(p) {
     $('#holder').show();
     $('#loading').hide();
-    $('#birthdate').html(p.birthdate);
-		$('#fname').html(p.fname);
-		$('#lname').html(p.lname);
+    // $('#birthdate').html(p.birthdate);
+		// $('#fname').html(p.fname);
+		// $('#lname').html(p.lname);
     $('#immun').html(p.immun);
   };
 
