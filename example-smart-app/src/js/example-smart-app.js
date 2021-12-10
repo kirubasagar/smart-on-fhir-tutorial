@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test2");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -58,14 +58,14 @@
                  var immun = '<table id="ImmunInfo">'
                              +'<tr>'
                              +'<td>Covid-19 Vaccination Record Card</td>'
-                             +'<td>Healthe Clinic</td>'
+                             +'<td>Healthe Clinic Image</td>'
                              +'</tr>'
                              +'<tr>'
-                             +'<td>'+ i18n.Immunization.NAME +'</td>'
-                             +'<td>'+ i18n.Immunization.BIRTHDATE +'</td>'
+                             +'<th>'+ i18n.Immunization.NAME +'</th>'
+                             +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
                              +'</tr>'
                              +'<tr>'
-                             +'<td>' + fname + lname + '</td>'
+                             +'<td>' + fname + ' '+ lname + '</td>'
                              +'<td>' + patient.birthDate +'</td>'
                              +'</tr>'
                              +'<tr><th id="ImmunName">Product Name</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
