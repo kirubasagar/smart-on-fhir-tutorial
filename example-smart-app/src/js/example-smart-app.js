@@ -86,10 +86,6 @@ function decodeAndVerifyJWSSignature(ret,jwsToken)
 
 function createTable(ret,jwsToken,immunizationData)
 {
-    // var fname = '';
-    // var lname = '';
-    // var birthDate = '';
-
     var immun = '<table id="ImmunInfo">'
                 +'<tr>'
                 +'<td>Covid-19 Vaccination Record Card</td>'
@@ -101,10 +97,6 @@ function createTable(ret,jwsToken,immunizationData)
     for (var entryIndex = 0; entryIndex < entryLength; entryIndex++) {
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient') {
-         // fname = entry.resource.name[0].given[0];
-         // lname = entry.resource.name[0].family;
-         // birthDate = entry.resource.birthDate;
-
          immun = immun
                      +'<tr>'
                      +'<th>'+ i18n.Immunization.NAME +'</th>'
