@@ -100,7 +100,7 @@ function createTable(ret,patient,jwsToken,immunizationData)
     var fname = '';
     var lname = '';
 
-    for (int entryIndex = 0; entryIndex < immunizationData.vc.credentialSubject.fhirBundle.entry.length; entryIndex++)
+    for (var entryIndex = 0; entryIndex < immunizationData.vc.credentialSubject.fhirBundle.entry.length; entryIndex++)
     {
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient')
