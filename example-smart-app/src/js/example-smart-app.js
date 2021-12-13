@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -77,8 +77,8 @@ function decodeAndVerifyJWSSignature(ret,patient,jwsToken)
   request1.onreadystatechange = function() {
     if (request1.readyState === 4) {
       if (request1.DONE && request1.status === 200) {
-        var immunData = JSON.parse(request1.response);
-        createTable(ret,patient,jwsToken);
+        var immunizationData = JSON.parse(request1.response);
+        createTable(ret,patient,jwsToken,immunizationData);
       }
     }
   }
@@ -93,8 +93,10 @@ function decodeAndVerifyJWSSignature(ret,patient,jwsToken)
   request1.send(body1);
 }
 
-function createTable(ret,patient,jwsToken)
+function createTable(ret,patient,jwsToken,immunizationData)
 {
+    alert(immunizationData.vc.credentialSubject.fhirBundle.entry.length);
+    var patientInfo = immunizationData.vc.credentialSubject.fhirBundle.entry;
     var fname = '';
     var lname = '';
 
