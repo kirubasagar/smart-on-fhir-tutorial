@@ -28,7 +28,7 @@
         $.when(pt).fail(onError);
 
         $.when(pt).done(function(patient) {
-          var personId = 12724065;
+          var personId = 12724065;// 3374491 // 3213970
           var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
           alert(url);
           var request = new XMLHttpRequest();
@@ -78,6 +78,7 @@
               }
               else {
                  alert("faliure");
+                 alert(request.status);
               }
             }
           }
