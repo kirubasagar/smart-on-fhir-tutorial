@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -28,21 +28,25 @@
         $.when(pt).fail(onError);
 
         $.when(pt).done(function(patient) {
-          var url = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
+          var personId = 12724065;
+          var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + personId + "/$health-cards-issue";
+
           var request = new XMLHttpRequest();
           request.open("POST", url, true);
           request.onreadystatechange = function() {
             if (request.readyState === 4) {
               if (request.DONE && request.status === 200) {
-                var immunData = JSON.parse(request.response);
+                var testData = JSON.parse(request.response);
                 var qrcode = new QRCode(document.getElementById("qrcode"), {
-                   text: smart.server.auth.token,
+                   text: testData.parameter[0].valueString,
                    width: 128,
                    height: 128,
                    colorDark : "#000000",
                    colorLight : "#ffffff",
                    correctLevel : QRCode.CorrectLevel.H
                  });
+                 var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
+
                  var fname = '';
 					       var lname = '';
 
@@ -77,16 +81,14 @@
               }
             }
           }
-
           request.setRequestHeader("Accept", "application/fhir+json");
           request.setRequestHeader("Content-Type", "application/fhir+json");
-          var body = "{\"jws\":\""
-                    + smart.server.auth.token + "\","
-                    + "\"verify_signature\":"
-                    + true
-                    + "}";
-          request.send(body);
+          var body = "{\"resourceType\":\"Parameters\","
+                     + "\"parameter\":["
+                     +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
+                     +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
 
+          request.send(body);
         });
       }
       else {
@@ -98,29 +100,29 @@
     return ret.promise();
 };
 
-// function getImmunizationInformation(jwsToken)
-// {
-//   var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
-//   var request1 = new XMLHttpRequest();
-//   request1.open("POST", url1, true);
-//   request1.onreadystatechange = function() {
-//     if (request1.readyState === 4) {
-//       if (request1.DONE && request1.status === 200) {
-//         var immunData = JSON.parse(request1.response);
-//         return immunData;
-//       }
-//     }
-//   }
-//
-//   request1.setRequestHeader("Accept", "application/fhir+json");
-//   request1.setRequestHeader("Content-Type", "application/fhir+json");
-//   var body1 = "{\"jws\":\""
-//             + jwsToken + "\","
-//             + "\"verify_signature\":"
-//             + true
-//             + "}";
-//   request1.send(body1);
-// }
+function getImmunizationInformation(jwsToken)
+{
+  var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
+  var request1 = new XMLHttpRequest();
+  request1.open("POST", url1, true);
+  request1.onreadystatechange = function() {
+    if (request1.readyState === 4) {
+      if (request1.DONE && request1.status === 200) {
+        var immunData = JSON.parse(request1.response);
+        return immunData;
+      }
+    }
+  }
+
+  request1.setRequestHeader("Accept", "application/fhir+json");
+  request1.setRequestHeader("Content-Type", "application/fhir+json");
+  var body1 = "{\"jws\":\""
+            + jwsToken + "\","
+            + "\"verify_signature\":"
+            + true
+            + "}";
+  request1.send(body1);
+}
 
  function defaultPatient(){
     return {
