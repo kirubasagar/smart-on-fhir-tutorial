@@ -95,8 +95,6 @@ function decodeAndVerifyJWSSignature(ret,patient,jwsToken)
 
 function createTable(ret,patient,jwsToken,immunizationData)
 {
-    alert(immunizationData.vc.credentialSubject.fhirBundle.entry.length);
-
     var fname = '';
     var lname = '';
     var birthDate = '';
@@ -105,7 +103,7 @@ function createTable(ret,patient,jwsToken,immunizationData)
     for (var entryIndex = 0; entryIndex < entryLength; entryIndex++) {
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient') {
-         fname = entry.resource.name[0].given.join(' ');
+         fname = entry.resource.name[0].given[0];
          lname = entry.resource.name[0].family;
          birthDate = entry.resource.birthDate;
       }
