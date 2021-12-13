@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -30,51 +30,75 @@
         $.when(pt).done(function(patient) {
           var personId = 12724065;// 3374491 // 3213970
           var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + personId + "/$health-cards-issue";
-        
+
           var request = new XMLHttpRequest();
           request.open("POST", url, true);
           request.onreadystatechange = function() {
             if (request.readyState === 4) {
               if (request.DONE && request.status === 200) {
                 var testData = JSON.parse(request.response);
-                var qrcode = new QRCode(document.getElementById("qrcode"), {
-                   text: testData.parameter[0].valueString,
-                   width: 128,
-                   height: 128,
-                   colorDark : "#000000",
-                   colorLight : "#ffffff",
-                   correctLevel : QRCode.CorrectLevel.H
-                 });
-                 var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
 
-                 var fname = '';
-					       var lname = '';
+                var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
+                var request1 = new XMLHttpRequest();
+                request1.open("POST", url1, true);
+                request1.onreadystatechange = function() {
+                  if (request1.readyState === 4) {
+                    if (request1.DONE && request1.status === 200) {
+                      var immunData = JSON.parse(request1.response);
+                      var qrcode = new QRCode(document.getElementById("qrcode"), {
+                         text: testData.parameter[0].valueString,
+                         width: 128,
+                         height: 128,
+                         colorDark : "#000000",
+                         colorLight : "#ffffff",
+                         correctLevel : QRCode.CorrectLevel.H
+                       });
+                      // var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
 
-                 if (typeof patient.name[0] !== 'undefined') {
-        						fname = patient.name[0].given.join(' ');
-        						lname = patient.name[0].family.join(' ');
-        				 }
+                       var fname = '';
+      					       var lname = '';
 
-                 var immun = '<table id="ImmunInfo">'
-                             +'<tr>'
-                             +'<td>Covid-19 Vaccination Record Card</td>'
-                             +'<td>Healthe Clinic Image</td>'
-                             +'</tr>'
-                             +'<tr>'
-                             +'<th>'+ i18n.Immunization.NAME +'</th>'
-                             +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
-                             +'</tr>'
-                             +'<tr>'
-                             +'<td>' + fname + ' '+ lname + '</td>'
-                             +'<td>' + patient.birthDate +'</td>'
-                             +'</tr>'
-                             +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                             +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                             + '</table>';
+                       if (typeof patient.name[0] !== 'undefined') {
+              						fname = patient.name[0].given.join(' ');
+              						lname = patient.name[0].family.join(' ');
+              				 }
 
-                 var p = defaultPatient();
-                 p.immun = immun;
-                 ret.resolve(p);
+                       var immun = '<table id="ImmunInfo">'
+                                   +'<tr>'
+                                   +'<td>Covid-19 Vaccination Record Card</td>'
+                                   +'<td>Healthe Clinic Image</td>'
+                                   +'</tr>'
+                                   +'<tr>'
+                                   +'<th>'+ i18n.Immunization.NAME +'</th>'
+                                   +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
+                                   +'</tr>'
+                                   +'<tr>'
+                                   +'<td>' + fname + ' '+ lname + '</td>'
+                                   +'<td>' + patient.birthDate +'</td>'
+                                   +'</tr>'
+                                   +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                                   +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                                   + '</table>';
+
+                       var p = defaultPatient();
+                       p.immun = immun;
+                       ret.resolve(p);
+                    }
+                    else {
+                       alert("faliure");
+                       alert(request.status);
+                    }
+                  }
+                }
+
+                request1.setRequestHeader("Accept", "application/fhir+json");
+                request1.setRequestHeader("Content-Type", "application/fhir+json");
+                var body1 = "{\"jws\":\""
+                          + testData.parameter[0].valueString + "\","
+                          + "\"verify_signature\":"
+                          + true
+                          + "}";
+                request1.send(body1);
               }
               else {
                  alert("faliure");
@@ -101,29 +125,29 @@
     return ret.promise();
 };
 
-function getImmunizationInformation(jwsToken)
-{
-  var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
-  var request1 = new XMLHttpRequest();
-  request1.open("POST", url1, true);
-  request1.onreadystatechange = function() {
-    if (request1.readyState === 4) {
-      if (request1.DONE && request1.status === 200) {
-        var immunData = JSON.parse(request1.response);
-        return immunData;
-      }
-    }
-  }
-
-  request1.setRequestHeader("Accept", "application/fhir+json");
-  request1.setRequestHeader("Content-Type", "application/fhir+json");
-  var body1 = "{\"jws\":\""
-            + jwsToken + "\","
-            + "\"verify_signature\":"
-            + true
-            + "}";
-  request1.send(body1);
-}
+// function getImmunizationInformation(jwsToken)
+// {
+//   var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
+//   var request1 = new XMLHttpRequest();
+//   request1.open("POST", url1, true);
+//   request1.onreadystatechange = function() {
+//     if (request1.readyState === 4) {
+//       if (request1.DONE && request1.status === 200) {
+//         var immunData = JSON.parse(request1.response);
+//         return immunData;
+//       }
+//     }
+//   }
+//
+//   request1.setRequestHeader("Accept", "application/fhir+json");
+//   request1.setRequestHeader("Content-Type", "application/fhir+json");
+//   var body1 = "{\"jws\":\""
+//             + jwsToken + "\","
+//             + "\"verify_signature\":"
+//             + true
+//             + "}";
+//   request1.send(body1);
+// }
 
  function defaultPatient(){
     return {
