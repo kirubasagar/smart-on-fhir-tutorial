@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -55,34 +55,7 @@
                        });
                       // var kpTest = getImmunizationInformation(testData.parameter[0].valueString);
 
-                       var fname = '';
-      					       var lname = '';
-
-                       if (typeof patient.name[0] !== 'undefined') {
-              						fname = patient.name[0].given.join(' ');
-              						lname = patient.name[0].family.join(' ');
-              				 }
-
-                       var immun = '<table id="ImmunInfo">'
-                                   +'<tr>'
-                                   +'<td>Covid-19 Vaccination Record Card</td>'
-                                   +'<td>Healthe Clinic Image</td>'
-                                   +'</tr>'
-                                   +'<tr>'
-                                   +'<th>'+ i18n.Immunization.NAME +'</th>'
-                                   +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
-                                   +'</tr>'
-                                   +'<tr>'
-                                   +'<td>' + fname + ' '+ lname + '</td>'
-                                   +'<td>' + patient.birthDate +'</td>'
-                                   +'</tr>'
-                                   +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                                   +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                                   + '</table>';
-
-                       var p = defaultPatient();
-                       p.immun = immun;
-                       ret.resolve(p);
+                      createTable(ret,patient);
                     }
                     else {
                        alert("faliure");
@@ -124,6 +97,38 @@
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
 };
+
+function createTable(ret,patient)
+{
+    var fname = '';
+    var lname = '';
+
+    if (typeof patient.name[0] !== 'undefined') {
+       fname = patient.name[0].given.join(' ');
+       lname = patient.name[0].family.join(' ');
+    }
+
+    var immun = '<table id="ImmunInfo">'
+                +'<tr>'
+                +'<td>Covid-19 Vaccination Record Card</td>'
+                +'<td>Healthe Clinic Image</td>'
+                +'</tr>'
+                +'<tr>'
+                +'<th>'+ i18n.Immunization.NAME +'</th>'
+                +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
+                +'</tr>'
+                +'<tr>'
+                +'<td>' + fname + ' '+ lname + '</td>'
+                +'<td>' + patient.birthDate +'</td>'
+                +'</tr>'
+                +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+                + '</table>';
+
+    var p = defaultPatient();
+    p.immun = immun;
+    ret.resolve(p);
+}
 
 // function getImmunizationInformation(jwsToken)
 // {
