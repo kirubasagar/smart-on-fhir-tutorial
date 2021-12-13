@@ -99,13 +99,15 @@ function createTable(ret,patient,jwsToken,immunizationData)
 
     var fname = '';
     var lname = '';
+    var birthDate = '';
     var entryLength = immunizationData.vc.credentialSubject.fhirBundle.entry.length;
 
     for (var entryIndex = 0; entryIndex < entryLength; entryIndex++) {
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient') {
          fname = entry.resource.name[0].given.join(' ');
-         lname = entry.resource.name[0].family.join(' ');
+         lname = entry.resource.name[0].family;
+         birthDate = entry.resource.birthDate;
       }
     }
 
@@ -134,7 +136,7 @@ function createTable(ret,patient,jwsToken,immunizationData)
                 +'</tr>'
                 +'<tr>'
                 +'<td>' + fname + ' '+ lname + '</td>'
-                +'<td>' + patient.birthDate +'</td>'
+                +'<td>' + birthDate +'</td>'
                 +'</tr>'
                 +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
                 +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
