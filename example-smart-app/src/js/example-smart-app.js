@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -99,12 +99,11 @@ function createTable(ret,patient,jwsToken,immunizationData)
 
     var fname = '';
     var lname = '';
+    var entryLength = immunizationData.vc.credentialSubject.fhirBundle.entry.length;
 
-    for (var entryIndex = 0; entryIndex < immunizationData.vc.credentialSubject.fhirBundle.entry.length; entryIndex++)
-    {
+    for (var entryIndex = 0; entryIndex < entryLength; entryIndex++) {
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
-      if (entry.resource.resourceType == 'Patient')
-      {
+      if (entry.resource.resourceType == 'Patient') {
          fname = entry.resource.name[0].given.join(' ');
          lname = entry.resource.name[0].family.join(' ');
       }
