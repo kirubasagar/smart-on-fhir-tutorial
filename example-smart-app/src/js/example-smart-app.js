@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -86,19 +86,41 @@ function decodeAndVerifyJWSSignature(ret,jwsToken)
 
 function createTable(ret,jwsToken,immunizationData)
 {
-    var fname = '';
-    var lname = '';
-    var birthDate = '';
+    // var fname = '';
+    // var lname = '';
+    // var birthDate = '';
+
+    var immun = '<table id="ImmunInfo">'
+                +'<tr>'
+                +'<td>Covid-19 Vaccination Record Card</td>'
+                +'<td>Healthe Clinic Image</td>'
+                +'</tr>';
+
     var entryLength = immunizationData.vc.credentialSubject.fhirBundle.entry.length;
 
     for (var entryIndex = 0; entryIndex < entryLength; entryIndex++) {
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient') {
-         fname = entry.resource.name[0].given[0];
-         lname = entry.resource.name[0].family;
-         birthDate = entry.resource.birthDate;
+         // fname = entry.resource.name[0].given[0];
+         // lname = entry.resource.name[0].family;
+         // birthDate = entry.resource.birthDate;
+
+         immun = immun
+                     +'<tr>'
+                     +'<th>'+ i18n.Immunization.NAME +'</th>'
+                     +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
+                     +'</tr>'
+                     +'<tr>'
+                     +'<td>' + entry.resource.name[0].given[0] + ' '+ entry.resource.name[0].family + '</td>'
+                     +'<td>' + entry.resource.birthDate +'</td>'
+                     +'</tr>';
       }
     }
+
+    immun = immun
+          +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+          +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
+          + '</table>';
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {
        text: jwsToken,
@@ -108,23 +130,6 @@ function createTable(ret,jwsToken,immunizationData)
        colorLight : "#ffffff",
        correctLevel : QRCode.CorrectLevel.H
      });
-
-    var immun = '<table id="ImmunInfo">'
-                +'<tr>'
-                +'<td>Covid-19 Vaccination Record Card</td>'
-                +'<td>Healthe Clinic Image</td>'
-                +'</tr>'
-                +'<tr>'
-                +'<th>'+ i18n.Immunization.NAME +'</th>'
-                +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
-                +'</tr>'
-                +'<tr>'
-                +'<td>' + fname + ' '+ lname + '</td>'
-                +'<td>' + birthDate +'</td>'
-                +'</tr>'
-                +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-                + '</table>';
 
     var p = defaultPatient();
     p.immun = immun;
