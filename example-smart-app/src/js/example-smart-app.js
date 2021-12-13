@@ -10,12 +10,8 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
-        var header = null;
-        if (smart.server.auth.type === 'bearer') {
-            header = 'Bearer ' + smart.server.auth.token;
-         }
         var patientId = null;
         if (smart.tokenResponse) {
              patientId = smart.tokenResponse.patient;
@@ -23,13 +19,8 @@
              var userId = smart.tokenResponse.user;
         }
 
-        var patient = smart.patient;
-        var pt = patient.read();
-        $.when(pt).fail(onError);
+        callHealthCardEndpoint(ret,patientId)
 
-        $.when(pt).done(function(patient) {
-          callHealthCardEndpoint(ret,patient,patientId)
-        });
       }
       else {
         onError();
@@ -40,7 +31,7 @@
     return ret.promise();
 };
 
-function callHealthCardEndpoint(ret,patient,patientId)
+function callHealthCardEndpoint(ret,patientId)
 {
   patientId = 12724065;// 3374491 // 3213970
   var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
@@ -51,7 +42,7 @@ function callHealthCardEndpoint(ret,patient,patientId)
     if (request.readyState === 4) {
       if (request.DONE && request.status === 200) {
         var testData = JSON.parse(request.response);
-        decodeAndVerifyJWSSignature(ret,patient,testData.parameter[0].valueString);
+        decodeAndVerifyJWSSignature(ret,testData.parameter[0].valueString);
       }
       else {
          alert("faliure");
@@ -69,7 +60,7 @@ function callHealthCardEndpoint(ret,patient,patientId)
   request.send(body);
 }
 
-function decodeAndVerifyJWSSignature(ret,patient,jwsToken)
+function decodeAndVerifyJWSSignature(ret,jwsToken)
 {
   var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
   var request1 = new XMLHttpRequest();
@@ -78,7 +69,7 @@ function decodeAndVerifyJWSSignature(ret,patient,jwsToken)
     if (request1.readyState === 4) {
       if (request1.DONE && request1.status === 200) {
         var immunizationData = JSON.parse(request1.response);
-        createTable(ret,patient,jwsToken,immunizationData);
+        createTable(ret,jwsToken,immunizationData);
       }
     }
   }
@@ -93,7 +84,7 @@ function decodeAndVerifyJWSSignature(ret,patient,jwsToken)
   request1.send(body1);
 }
 
-function createTable(ret,patient,jwsToken,immunizationData)
+function createTable(ret,jwsToken,immunizationData)
 {
     var fname = '';
     var lname = '';
@@ -108,11 +99,6 @@ function createTable(ret,patient,jwsToken,immunizationData)
          birthDate = entry.resource.birthDate;
       }
     }
-
-    // if (typeof patient.name[0] !== 'undefined') {
-    //    fname = patient.name[0].given.join(' ');
-    //    lname = patient.name[0].family.join(' ');
-    // }
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {
        text: jwsToken,
