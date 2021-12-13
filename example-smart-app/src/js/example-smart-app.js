@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -37,31 +37,7 @@
             if (request.readyState === 4) {
               if (request.DONE && request.status === 200) {
                 var testData = JSON.parse(request.response);
-
-                var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
-                var request1 = new XMLHttpRequest();
-                request1.open("POST", url1, true);
-                request1.onreadystatechange = function() {
-                  if (request1.readyState === 4) {
-                    if (request1.DONE && request1.status === 200) {
-                      var immunData = JSON.parse(request1.response);
-                      getImmunizationInformation(ret,patient,testData.parameter[0].valueString);
-                    }
-                    else {
-                       alert("faliure");
-                       alert(request.status);
-                    }
-                  }
-                }
-
-                request1.setRequestHeader("Accept", "application/fhir+json");
-                request1.setRequestHeader("Content-Type", "application/fhir+json");
-                var body1 = "{\"jws\":\""
-                          + testData.parameter[0].valueString + "\","
-                          + "\"verify_signature\":"
-                          + true
-                          + "}";
-                request1.send(body1);
+                getImmunizationInformation(ret,patient,testData.parameter[0].valueString);
               }
               else {
                  alert("faliure");
@@ -87,6 +63,11 @@
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
 };
+
+function callHealthCardEndpoint(ret,patient,jwsToken)
+{
+
+}
 
 function getImmunizationInformation(ret,patient,jwsToken)
 {
