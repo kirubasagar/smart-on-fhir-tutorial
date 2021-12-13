@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var header = null;
         if (smart.server.auth.type === 'bearer') {
@@ -96,14 +96,25 @@ function decodeAndVerifyJWSSignature(ret,patient,jwsToken)
 function createTable(ret,patient,jwsToken,immunizationData)
 {
     alert(immunizationData.vc.credentialSubject.fhirBundle.entry.length);
-    var patientInfo = immunizationData.vc.credentialSubject.fhirBundle.entry;
+
     var fname = '';
     var lname = '';
 
-    if (typeof patient.name[0] !== 'undefined') {
-       fname = patient.name[0].given.join(' ');
-       lname = patient.name[0].family.join(' ');
+    for (int entryIndex = 0; entryIndex < immunizationData.vc.credentialSubject.fhirBundle.entry.length; entryIndex++)
+    {
+      var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
+      if (entry.resource.resourceType == 'Patient')
+      {
+         fname = entry.resource.name[0].given.join(' ');
+         lname = entry.resource.name[0].family.join(' ');
+      }
     }
+
+    // if (typeof patient.name[0] !== 'undefined') {
+    //    fname = patient.name[0].given.join(' ');
+    //    lname = patient.name[0].family.join(' ');
+    // }
+
     var qrcode = new QRCode(document.getElementById("qrcode"), {
        text: jwsToken,
        width: 128,
