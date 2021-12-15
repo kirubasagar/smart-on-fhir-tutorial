@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -98,8 +98,6 @@ function createTable(ret,jwsToken,immunizationData)
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient') {
          immun = immun
-                     +'</table>'
-                     +'<table id="ImmunInfo" class="tableBorder">'
                      +'<tr>'
                      +'<th>'+ i18n.Immunization.NAME +'</th>'
                      +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
@@ -107,7 +105,9 @@ function createTable(ret,jwsToken,immunizationData)
                      +'<tr>'
                      +'<td>' + entry.resource.name[0].given[0] + ' '+ entry.resource.name[0].family + '</td>'
                      +'<td>' + entry.resource.birthDate +'</td>'
-                     +'</tr>';
+                     +'</tr>'
+                     +'</table>'
+                     +'<table id="ImmunInfo" class="tableBorder">';
       }
       if (entry.resource.resourceType == 'Immunization') {
         immun = immun
