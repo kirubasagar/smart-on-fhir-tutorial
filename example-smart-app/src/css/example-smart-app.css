@@ -11,8 +11,12 @@ body {
   display: none;
 }
 
-#vaccineInfo {
+/* #vaccineInfo {
   border: 2px solid #DDDDDD;
+} */
+
+.tableBorder {
+   border-collapse: collapse;
 }
 
 .grayBorder {
