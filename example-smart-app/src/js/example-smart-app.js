@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -107,11 +107,13 @@ function createTable(ret,jwsToken,immunizationData)
                      +'<td>' + entry.resource.birthDate +'</td>'
                      +'</tr>';
       }
+      if (entry.resource.resourceType == 'Immunization') {
+        immun = immun
+              +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>';
+      }
     }
 
     immun = immun
-          +'<tr><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-          +'<tr><th id="ImmunName">2</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
           + '</table>';
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {
