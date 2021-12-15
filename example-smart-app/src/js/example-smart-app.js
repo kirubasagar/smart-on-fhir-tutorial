@@ -88,9 +88,11 @@ function createTable(ret,jwsToken,immunizationData)
 {
     var immun = '<table id="ImmunInfo" class="tableBorder">'
                 +'<tr>'
-                +'<td>Covid-19 Vaccination Record Card</td>'
+                +'<td>'+ i18n.Immunization.COVID_VACCINATION_RECORD_CARD + '</td>'
                 +'<td>Healthe Clinic Image</td>'
-                +'</tr>';
+                +'</tr>'
+                +'</table>'
+                +'<table id="ImmunInfo" class="tableBorder">';
 
     var entryLength = immunizationData.vc.credentialSubject.fhirBundle.entry.length;
 
