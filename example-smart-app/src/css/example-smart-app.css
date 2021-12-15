@@ -9,6 +9,7 @@ body {
 
 #holder {
   display: none;
+  border: 2px solid #DDDDDD;
 }
 
 /* #vaccineInfo {

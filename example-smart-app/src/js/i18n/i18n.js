@@ -7,6 +7,7 @@ if(typeof i18n === 'undefined') {
 i18n.Immunization = {
     BIRTHDATE: 'Date of Birth',
     COVID_VACCINATION_RECORD_CARD: 'COVID-19 Vaccination Record Card',
-    NAME: 'Name'
+    NAME: 'Name',
+    HEALTH_CARD_INFOMATION_ONE: 'Use your modile device to take a screen shot of each QR code available to you. Keep each screen shot in a secure location for offline viewing'
 
 }

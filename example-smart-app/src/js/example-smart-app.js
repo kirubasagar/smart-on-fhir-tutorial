@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -117,6 +117,7 @@ function createTable(ret,jwsToken,immunizationData)
     }
 
     immun = immun
+          + '<tr><td colspan=2>' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
           + '</table>';
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {
