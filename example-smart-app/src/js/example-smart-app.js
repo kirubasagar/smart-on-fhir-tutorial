@@ -109,8 +109,8 @@ function createTable(ret,jwsToken,immunizationData)
       }
       if (entry.resource.resourceType == 'Immunization') {
         immun = immun
-              +'<tr id="vaccineInfo"><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>'
-              +'<tr id="vaccineInfo"><th id="ImmunName">1</th><td id="ProductName">Covid-19 Vaccine</td></tr>';
+              +'<tr id="vaccineInfo"><th id="ImmunName" class="grayBorder">1</th><td id="ProductName" class="grayBorder">Covid-19 Vaccine</td></tr>'
+              +'<tr id="vaccineInfo"><th id="ImmunName" class="grayBorder">1</th><td id="ProductName" class="grayBorder">Covid-19 Vaccine</td></tr>';
       }
     }
 
