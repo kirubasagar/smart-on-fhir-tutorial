@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -86,7 +86,7 @@ function decodeAndVerifyJWSSignature(ret,jwsToken)
 
 function createTable(ret,jwsToken,immunizationData)
 {
-    var immun = '<table id="ImmunInfo">'
+    var immun = '<table id="ImmunInfo" class="grayBorder">'
                 +'<tr>'
                 +'<td>Covid-19 Vaccination Record Card</td>'
                 +'<td>Healthe Clinic Image</td>'
