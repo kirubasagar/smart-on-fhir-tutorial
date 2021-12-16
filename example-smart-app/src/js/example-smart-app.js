@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -112,12 +112,12 @@ function createTable(ret,jwsToken,immunizationData)
       if (entry.resource.resourceType == 'Immunization') {
         immun = immun
               +'<tr id="vaccineInfo"><td class="grayBorder">1</td><td  class="grayBorder">Covid-19 Vaccine</td></tr>'
-              +'<tr id="vaccineInfo"><td class="grayBorder">1</td><td  class="grayBorder">Covid-19 Vaccine</td></tr>';
+              +'<tr id="vaccineInfo"><td class="grayBorder">1</td><td  class="grayBorder">Covid-19 Vaccine</td></tr>'
+              + '</table>';
       }
     }
 
     var immunInfo =
-          + '</table>'
           + '<table class="tableBorder">'
           + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
           + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
