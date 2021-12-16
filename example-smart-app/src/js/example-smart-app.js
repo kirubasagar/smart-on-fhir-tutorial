@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -116,9 +116,9 @@ function createTable(ret,jwsToken,immunizationData)
       }
     }
 
-    immun = immun
+    var immunInfo =
           + '</table>'
-          + '<table>'
+          + '<table class="tableBorder">'
           + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
           + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
           + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
@@ -135,12 +135,14 @@ function createTable(ret,jwsToken,immunizationData)
 
     var p = defaultPatient();
     p.immun = immun;
+    p.immunInfo = immunInfo;
     ret.resolve(p);
 }
 
  function defaultPatient(){
     return {
         immun: {value: ''},
+        immunInfo: {value: ''},
     };
   }
 
@@ -148,6 +150,7 @@ function createTable(ret,jwsToken,immunizationData)
     $('#holder').show();
     $('#loading').hide();
     $('#immun').html(p.immun);
+    $('#immunInfo').html(p.immunInfo);
   };
 
 })(window);
