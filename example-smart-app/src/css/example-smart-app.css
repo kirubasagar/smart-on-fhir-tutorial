@@ -24,6 +24,9 @@ body {
 }
 
 .float-container {
+    box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
     border: 2px solid #DDDDDD;
     padding: 20px;
     /* width: 100%;
