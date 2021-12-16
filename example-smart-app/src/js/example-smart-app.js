@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -117,7 +117,11 @@ function createTable(ret,jwsToken,immunizationData)
     }
 
     immun = immun
-          + '<tr><td colspan=2>' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
+          + '</table>'
+          + '<table>'
+          + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
+          + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
+          + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
           + '</table>';
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {
