@@ -99,8 +99,8 @@ function createTable(ret,jwsToken,immunizationData)
       if (entry.resource.resourceType == 'Patient') {
 
 
-         // var dateObj = new Date();
-         // dateObj.setISO8601(entry.resource.birthDate);
+         var dateObj = new Date();
+         dateObj.setISO8601(entry.resource.birthDate);
          // alert(dateObj);
 
          immun = immun
@@ -110,7 +110,7 @@ function createTable(ret,jwsToken,immunizationData)
                      +'</tr>'
                      +'<tr>'
                      +'<td>' + entry.resource.name[0].given[0] + ' '+ entry.resource.name[0].family + '</td>'
-                     +'<td>' + entry.resource.birthDate +'</td>'
+                     +'<td>' + entry.resource.birthDate  + "  --  " + dateObj +'</td>'
                      +'</tr>'
                      +'</table>'
                      +'<table id="ImmunInfo" class="tableBorder">';
