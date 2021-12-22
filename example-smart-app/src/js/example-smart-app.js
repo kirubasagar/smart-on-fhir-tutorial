@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -97,6 +97,14 @@ function createTable(ret,jwsToken,immunizationData)
     for (var entryIndex = 0; entryIndex < entryLength; entryIndex++) {
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient') {
+
+       //  if (targetDate === null || targetDate === undefined || targetDate === "/Date(0000-00-00T00:00:00.000+00:00)/" || targetDate === false) {
+       //     return "--";
+       // }
+         const dateObj = new Date();
+         dateObj.setISO8601(entry.resource.birthDate);
+         alert(dateObj);
+
          immun = immun
                      +'<tr>'
                      +'<th>'+ i18n.Immunization.NAME +'</th>'
