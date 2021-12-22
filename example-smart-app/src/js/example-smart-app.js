@@ -98,12 +98,10 @@ function createTable(ret,jwsToken,immunizationData)
       var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
       if (entry.resource.resourceType == 'Patient') {
 
-       //  if (targetDate === null || targetDate === undefined || targetDate === "/Date(0000-00-00T00:00:00.000+00:00)/" || targetDate === false) {
-       //     return "--";
-       // }
-         var dateObj = new Date();
-         dateObj.setISO8601(entry.resource.birthDate);
-         alert(dateObj);
+
+         // var dateObj = new Date();
+         // dateObj.setISO8601(entry.resource.birthDate);
+         // alert(dateObj);
 
          immun = immun
                      +'<tr>'
