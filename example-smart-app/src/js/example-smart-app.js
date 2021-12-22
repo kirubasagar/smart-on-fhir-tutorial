@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test1");
+        alert("test");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -101,7 +101,7 @@ function createTable(ret,jwsToken,immunizationData)
        //  if (targetDate === null || targetDate === undefined || targetDate === "/Date(0000-00-00T00:00:00.000+00:00)/" || targetDate === false) {
        //     return "--";
        // }
-         const dateObj = new Date();
+         var dateObj = new Date();
          dateObj.setISO8601(entry.resource.birthDate);
          alert(dateObj);
 
