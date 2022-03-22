@@ -1,4 +1,5 @@
 (function(window){
+  'use strict';
   window.extractData = function() {
     var ret = $.Deferred();
 
@@ -9,123 +10,149 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        var patient = smart.patient;
-        var pt = patient.read();
-        var obv = smart.patient.api.fetchAll({
-                    type: 'Observation',
-                    query: {
-                      code: {
-                        $or: ['http://loinc.org|8302-2', 'http://loinc.org|8462-4',
-                              'http://loinc.org|8480-6', 'http://loinc.org|2085-9',
-                              'http://loinc.org|2089-1', 'http://loinc.org|55284-4']
-                      }
-                    }
-                  });
+        alert("test");
 
-        $.when(pt, obv).fail(onError);
+        var patientId = null;
+        if (smart.tokenResponse) {
+             patientId = smart.tokenResponse.patient;
+             var encounterId = smart.tokenResponse.encounter;
+             var userId = smart.tokenResponse.user;
+        }
 
-        $.when(pt, obv).done(function(patient, obv) {
-          var byCodes = smart.byCodes(obv, 'code');
-          var gender = patient.gender;
+        callHealthCardEndpoint(ret,patientId)
 
-          var fname = '';
-          var lname = '';
-
-          if (typeof patient.name[0] !== 'undefined') {
-            fname = patient.name[0].given.join(' ');
-            lname = patient.name[0].family.join(' ');
-          }
-
-          var height = byCodes('8302-2');
-          var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
-          var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
-          var hdl = byCodes('2085-9');
-          var ldl = byCodes('2089-1');
-
-          var p = defaultPatient();
-          p.birthdate = patient.birthDate;
-          p.gender = gender;
-          p.fname = fname;
-          p.lname = lname;
-          p.height = getQuantityValueAndUnit(height[0]);
-
-          if (typeof systolicbp != 'undefined')  {
-            p.systolicbp = systolicbp;
-          }
-
-          if (typeof diastolicbp != 'undefined') {
-            p.diastolicbp = diastolicbp;
-          }
-
-          p.hdl = getQuantityValueAndUnit(hdl[0]);
-          p.ldl = getQuantityValueAndUnit(ldl[0]);
-
-          ret.resolve(p);
-        });
-      } else {
+      }
+      else {
         onError();
       }
     }
 
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
+};
 
-  };
+function callHealthCardEndpoint(ret,patientId)
+{
+  patientId = 12724065;// 3374491 // 3213970
+  var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
 
-  function defaultPatient(){
-    return {
-      fname: {value: ''},
-      lname: {value: ''},
-      gender: {value: ''},
-      birthdate: {value: ''},
-      height: {value: ''},
-      systolicbp: {value: ''},
-      diastolicbp: {value: ''},
-      ldl: {value: ''},
-      hdl: {value: ''},
-    };
-  }
-
-  function getBloodPressureValue(BPObservations, typeOfPressure) {
-    var formattedBPObservations = [];
-    BPObservations.forEach(function(observation){
-      var BP = observation.component.find(function(component){
-        return component.code.coding.find(function(coding) {
-          return coding.code == typeOfPressure;
-        });
-      });
-      if (BP) {
-        observation.valueQuantity = BP.valueQuantity;
-        formattedBPObservations.push(observation);
+  var request = new XMLHttpRequest();
+  request.open("POST", url, true);
+  request.onreadystatechange = function() {
+    if (request.readyState === 4) {
+      if (request.DONE && request.status === 200) {
+        var testData = JSON.parse(request.response);
+        decodeAndVerifyJWSSignature(ret,testData.parameter[0].valueString);
       }
-    });
+      else {
+         alert("faliure");
+         alert(request.status);
+      }
+    }
+  }
+  request.setRequestHeader("Accept", "application/fhir+json");
+  request.setRequestHeader("Content-Type", "application/fhir+json");
+  var body = "{\"resourceType\":\"Parameters\","
+             + "\"parameter\":["
+             +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
+             +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#covid19\"}]}";
 
-    return getQuantityValueAndUnit(formattedBPObservations[0]);
+  request.send(body);
+}
+
+function decodeAndVerifyJWSSignature(ret,jwsToken)
+{
+  var url1 = "https://fhir-open.stagingcerner.com/beta/admin/health-cards/decode";
+  var request1 = new XMLHttpRequest();
+  request1.open("POST", url1, true);
+  request1.onreadystatechange = function() {
+    if (request1.readyState === 4) {
+      if (request1.DONE && request1.status === 200) {
+        var immunizationData = JSON.parse(request1.response);
+        createTable(ret,jwsToken,immunizationData);
+      }
+    }
   }
 
-  function getQuantityValueAndUnit(ob) {
-    if (typeof ob != 'undefined' &&
-        typeof ob.valueQuantity != 'undefined' &&
-        typeof ob.valueQuantity.value != 'undefined' &&
-        typeof ob.valueQuantity.unit != 'undefined') {
-          return ob.valueQuantity.value + ' ' + ob.valueQuantity.unit;
-    } else {
-      return undefined;
+  request1.setRequestHeader("Accept", "application/fhir+json");
+  request1.setRequestHeader("Content-Type", "application/fhir+json");
+  var body1 = "{\"jws\":\""
+            + jwsToken + "\","
+            + "\"verify_signature\":"
+            + true
+            + "}";
+  request1.send(body1);
+}
+
+function createTable(ret,jwsToken,immunizationData)
+{
+    var immun = '<table id="ImmunInfo" class="tableBorder">'
+                +'<tr>'
+                +'<td>'+ i18n.Immunization.COVID_VACCINATION_RECORD_CARD + '</td>'
+                +'<td>Healthe Clinic Image</td>'
+                +'</tr>';
+
+    var entryLength = immunizationData.vc.credentialSubject.fhirBundle.entry.length;
+
+    for (var entryIndex = 0; entryIndex < entryLength; entryIndex++) {
+      var entry = immunizationData.vc.credentialSubject.fhirBundle.entry[entryIndex];
+      if (entry.resource.resourceType == 'Patient') {
+
+         immun = immun
+                     +'<tr>'
+                     +'<th>'+ i18n.Immunization.NAME +'</th>'
+                     +'<th>'+ i18n.Immunization.BIRTHDATE +'</th>'
+                     +'</tr>'
+                     +'<tr>'
+                     +'<td>' + entry.resource.name[0].given[0] + ' '+ entry.resource.name[0].family + '</td>'
+                     +'<td>' + entry.resource.birthDate + '</td>'
+                     +'</tr>'
+                     +'</table>'
+                     +'<table id="ImmunInfo" class="tableBorder">';
+      }
+      if (entry.resource.resourceType == 'Immunization') {
+        immun = immun
+              +'<tr id="vaccineInfo"><td class="grayBorder">1</td><td  class="grayBorder">Covid-19 Vaccine</td></tr>'
+              +'<tr id="vaccineInfo"><td class="grayBorder">1</td><td  class="grayBorder">Covid-19 Vaccine</td></tr>'
+              + '</table>';
+      }
     }
+
+  //  var immunInfo =
+  immun = immun
+          + '<table class="tableBorder">'
+          + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
+          + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
+          + '<tr><td class="grayBorder">' + i18n.Immunization.HEALTH_CARD_INFOMATION_ONE +'<td></tr>'
+          + '</table>';
+
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+       text: jwsToken,
+       width: 128,
+       height: 128,
+       colorDark : "#000000",
+       colorLight : "#ffffff",
+       correctLevel : QRCode.CorrectLevel.H
+     });
+
+    var p = defaultPatient();
+    p.immun = immun;
+    // p.immunInfo = immunInfo;
+    ret.resolve(p);
+}
+
+ function defaultPatient(){
+    return {
+        immun: {value: ''},
+        // immunInfo: {value: ''},
+    };
   }
 
   window.drawVisualization = function(p) {
     $('#holder').show();
     $('#loading').hide();
-    $('#fname').html(p.fname);
-    $('#lname').html(p.lname);
-    $('#gender').html(p.gender);
-    $('#birthdate').html(p.birthdate);
-    $('#height').html(p.height);
-    $('#systolicbp').html(p.systolicbp);
-    $('#diastolicbp').html(p.diastolicbp);
-    $('#ldl').html(p.ldl);
-    $('#hdl').html(p.hdl);
+    $('#immun').html(p.immun);
+    // $('#immunInfo').html(p.immunInfo);
   };
 
 })(window);
