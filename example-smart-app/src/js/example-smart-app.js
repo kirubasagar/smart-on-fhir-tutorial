@@ -17,7 +17,7 @@
              patientId = smart.tokenResponse.patient;
              var encounterId = smart.tokenResponse.encounter;
              var userId = smart.tokenResponse.user;
-             alert('has pID');
+             alert(patientId);
         }
 
         callHealthCardEndpoint(ret,patientId)
