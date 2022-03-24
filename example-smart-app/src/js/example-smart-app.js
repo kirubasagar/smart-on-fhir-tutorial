@@ -33,7 +33,8 @@
 
 function callHealthCardEndpoint(ret,patientId)
 {
-  alert('hi',patientId);
+  alert("innn");
+  alert(patientId);
   patientId = 12724069;// 3374491 // 3213970
   var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
 
@@ -43,7 +44,7 @@ function callHealthCardEndpoint(ret,patientId)
     if (request.readyState === 4) {
       if (request.DONE && request.status === 200) {
         var testData = JSON.parse(request.response);
-        decodeAndVerifyJWSSignature(ret,testData.parameter[0].valueString);
+        decodeAndVerifyJWSSignature(ret,testData?.parameter[0]?.valueString);
       }
       else {
          alert("faliure");
