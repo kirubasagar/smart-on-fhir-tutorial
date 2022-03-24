@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("testLatest");
 
         var patientId = null;
         if (smart.tokenResponse) {
