@@ -11,6 +11,42 @@ body {
   display: none;
 }
 
+/* #vaccineInfo {
+  border: 2px solid #DDDDDD;
+} */
+
+.tableBorder {
+   border-collapse: collapse;
+}
+
+.grayBorder {
+  border: 2px solid #DDDDDD;
+}
+
+.float-container {
+    /* box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+    border: 2px solid #DDDDDD; */
+    padding: 20px;
+    /* width: 100%;
+    height: 100%; */
+}
+
+.float-child1 {
+    width: 60%;
+    float: left;
+    padding: 20px;
+    /* border: 2px solid red; */
+}
+
+.float-child2 {
+    width: 15%;
+    float: left;
+    padding: 20px;
+    /* border: 2px solid red; */
+}
+
 .spinner {
   margin: 100px auto 0;
   width: 70px;
