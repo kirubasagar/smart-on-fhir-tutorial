@@ -10,17 +10,19 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("testLatest3");
+        alert("testLatest4");
 
         var patientId = null;
+        var bearerToken = null;
         if (smart.tokenResponse) {
              patientId = smart.tokenResponse.patient;
              var encounterId = smart.tokenResponse.encounter;
              var userId = smart.tokenResponse.user;
              console.log(smart.tokenResponse);
+             bearerToken = smart.tokenResponse.access_token;
         }
 
-        callHealthCardEndpoint(ret,patientId)
+        callHealthCardEndpoint(ret,patientId,bearerToken)
 
       }
       else {
@@ -32,7 +34,7 @@
     return ret.promise();
 };
 
-function callHealthCardEndpoint(ret,patientId)
+function callHealthCardEndpoint(ret,patientId,bearerToken)
 {
   alert("innn");
   alert(patientId);
@@ -46,6 +48,7 @@ function callHealthCardEndpoint(ret,patientId)
   request.onreadystatechange = function() {
     if (request.readyState === 4) {
       if (request.DONE && request.status === 200) {
+        alert("vetri");
         var testData = JSON.parse(request.response);
         decodeAndVerifyJWSSignature(ret,testData?.parameter[0]?.valueString);
       }
@@ -57,6 +60,7 @@ function callHealthCardEndpoint(ret,patientId)
   }
   request.setRequestHeader("Accept", "application/fhir+json");
   request.setRequestHeader("Content-Type", "application/fhir+json");
+  request.setRequestHeader("Authorization", "Bearer "+bearerToken);
   var body = "{\"resourceType\":\"Parameters\","
              + "\"parameter\":["
              +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
