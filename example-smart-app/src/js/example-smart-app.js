@@ -10,13 +10,14 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("testLatest2");
+        alert("testLatest3");
 
         var patientId = null;
         if (smart.tokenResponse) {
              patientId = smart.tokenResponse.patient;
              var encounterId = smart.tokenResponse.encounter;
              var userId = smart.tokenResponse.user;
+             console.log(smart.tokenResponse);
         }
 
         callHealthCardEndpoint(ret,patientId)
