@@ -55,12 +55,14 @@ function callHealthCardEndpoint(ret,patientId,bearerToken)
       else {
          alert("faliure");
          alert(request.status);
+        console.log(request.response);
       }
     }
   }
+  alert(bearerToken);
   request.setRequestHeader("Accept", "application/fhir+json");
   request.setRequestHeader("Content-Type", "application/fhir+json");
-  request.setRequestHeader("Authorization", "Bearer "+bearerToken);
+  request.setRequestHeader("Authorization", "Bearer "+ bearerToken);
   var body = "{\"resourceType\":\"Parameters\","
              + "\"parameter\":["
              +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
