@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("testLatest6");
+        alert("testLatest7");
 
         var patientId = null;
         var bearerToken = null;
