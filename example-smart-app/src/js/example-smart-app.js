@@ -49,7 +49,7 @@ function callHealthCardEndpoint(ret,patientId,bearerToken)
       if (request.DONE && request.status === 200) {
         alert("vetri");
         var testData = JSON.parse(request.response);
-        decodeAndVerifyJWSSignature(ret,testData?.parameter[0]?.valueString);
+        decodeAndVerifyJWSSignature(ret,testData.parameter[0]?.valueString);
       }
       else {
          alert("faliure");
