@@ -10,10 +10,9 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("testLatest1");
+        alert("test");
 
         var patientId = null;
-        var bearerToken = null;
         if (smart.tokenResponse) {
              patientId = smart.tokenResponse.patient;
              var encounterId = smart.tokenResponse.encounter;
@@ -32,11 +31,10 @@
     return ret.promise();
 };
 
-function callHealthCardEndpoint(ret,patientId,bearerToken)
+function callHealthCardEndpoint(ret,patientId)
 {
-  patientId = 12724065;// 3374491 // 3213970 // 12724065 //12724069
+  patientId = 12724065;// 3374491 // 3213970
   var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
-  //var url = "https://fhir-myrecord.cerner.com/r4/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue"
 
   var request = new XMLHttpRequest();
   request.open("POST", url, true);
@@ -44,12 +42,11 @@ function callHealthCardEndpoint(ret,patientId,bearerToken)
     if (request.readyState === 4) {
       if (request.DONE && request.status === 200) {
         var testData = JSON.parse(request.response);
-        alert(testData);
-        decodeAndVerifyJWSSignature(ret,testData.parameter[0]?.valueString);
+        decodeAndVerifyJWSSignature(ret,testData.parameter[0].valueString);
       }
       else {
+         alert("faliure");
          alert(request.status);
-        console.log(request.response);
       }
     }
   }
