@@ -10,16 +10,18 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
+        var bearerToken = null;
         if (smart.tokenResponse) {
              patientId = smart.tokenResponse.patient;
              var encounterId = smart.tokenResponse.encounter;
              var userId = smart.tokenResponse.user;
+             bearerToken = smart.tokenResponse.access_token;
         }
 
-        callHealthCardEndpoint(ret,patientId)
+        callHealthCardEndpoint(ret,patientId,bearerToken)
 
       }
       else {
@@ -31,11 +33,11 @@
     return ret.promise();
 };
 
-function callHealthCardEndpoint(ret,patientId)
+function callHealthCardEndpoint(ret,patientId,bearerToken)
 {
   patientId = 12724065;// 3374491 // 3213970
-  var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
-
+  var url = "https://fhir-myrecord.cerner.com/r4/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
+  
   var request = new XMLHttpRequest();
   request.open("POST", url, true);
   request.onreadystatechange = function() {
@@ -52,6 +54,7 @@ function callHealthCardEndpoint(ret,patientId)
   }
   request.setRequestHeader("Accept", "application/fhir+json");
   request.setRequestHeader("Content-Type", "application/fhir+json");
+  request.setRequestHeader("Authorization", "Bearer "+ bearerToken);
   var body = "{\"resourceType\":\"Parameters\","
              + "\"parameter\":["
              +  "{\"name\":\"credentialType\",\"valueUri\":\"https://smarthealth.cards#immunization\"},"
