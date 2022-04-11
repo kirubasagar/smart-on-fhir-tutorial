@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("test");
+        alert("test1");
 
         var patientId = null;
         if (smart.tokenResponse) {
@@ -34,7 +34,7 @@
 function callHealthCardEndpoint(ret,patientId)
 {
   patientId = 12724065;// 3374491 // 3213970
-  var url = "https://fhir-open.stagingcerner.com/beta/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
+  var url = "https://fhir-open.cerner.com/r4/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
 
   var request = new XMLHttpRequest();
   request.open("POST", url, true);
