@@ -36,6 +36,7 @@
 function callHealthCardEndpoint(ret,patientId,bearerToken)
 {
   patientId = 12724065;// 3374491 // 3213970
+  alert(bearerToken);
   var url = "https://fhir-myrecord.cerner.com/r4/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/" + patientId + "/$health-cards-issue";
   
   var request = new XMLHttpRequest();
