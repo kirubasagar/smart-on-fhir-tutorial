@@ -10,7 +10,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        alert("testLatest9");
+        alert("testLatest1");
 
         var patientId = null;
         var bearerToken = null;
@@ -44,6 +44,7 @@ function callHealthCardEndpoint(ret,patientId,bearerToken)
     if (request.readyState === 4) {
       if (request.DONE && request.status === 200) {
         var testData = JSON.parse(request.response);
+        alert(testData);
         decodeAndVerifyJWSSignature(ret,testData.parameter[0]?.valueString);
       }
       else {
